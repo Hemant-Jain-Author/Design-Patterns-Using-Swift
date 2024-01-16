@@ -1,30 +1,38 @@
-interface Subject {
-    void request();
+import Foundation
+
+// Subject protocol
+protocol Subject {
+    func request()
 }
 
-class RealSubject implements Subject {
-    @Override
-    public void request() {
-        System.out.println("Concrete Subject Request Method");
+// RealSubject class conforming to Subject protocol
+class RealSubject: Subject {
+    func request() {
+        print("Concrete Subject Request Method")
     }
 }
 
-class Proxy implements Subject {
-    private RealSubject realSubject;
+// Proxy class conforming to Subject protocol
+class Proxy: Subject {
+    private var realSubject: RealSubject
 
-    public Proxy() {
-        this.realSubject = new RealSubject();
+    init() {
+        self.realSubject = RealSubject()
     }
 
-    @Override
-    public void request() {
-        realSubject.request();
+    func request() {
+        realSubject.request()
+    }
+}
+
+// Main class
+class ProxyTest {
+    func main() {
+        let proxy = Proxy()
+        proxy.request()
     }
 }
 
-public class ProxyTest {
-    public static void main(String[] args) {
-        Proxy proxy = new Proxy();
-        proxy.request();
-    }
-}
+// Create an instance of ProxyTest and call the main method
+let proxyTest = ProxyTest()
+proxyTest.main()

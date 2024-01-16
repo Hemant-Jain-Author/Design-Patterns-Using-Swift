@@ -1,104 +1,90 @@
 class Animal {
-    String name;
+    var name: String
 
-    public Animal(String name) {
-        this.name = name;
+    init(name: String) {
+        self.name = name
     }
 }
 
-class Bird extends Animal {
-    public Bird(String name) {
-        super(name);
-    }
+class Bird: Animal {
 
-    void fly() {
+    func fly() {
         // Abstract method, to be overridden by subclasses
     }
-}
 
-class Dodo extends Bird {
-    public Dodo() {
-        super("Dodo");
-    }
-
-    @Override
-    void fly() {
-        System.out.println("The dodo is extinct and cannot fly.");
+    override init(name: String = "") {
+        super.init(name: name)
     }
 }
 
-class Penguin extends Bird {
-    public Penguin() {
-        super("Penguin");
+class Dodo: Bird {
+    override init(name: String = "") {
+        super.init(name: "Dodo")
     }
 
-    @Override
-    void fly() {
-        System.out.println("The penguin cannot fly.");
-    }
-
-    void slide() {
-        System.out.println("The penguin is sliding on its belly!");
-    }
-
-    void swim() {
-        System.out.println("The penguin is swimming in the water!");
+    override func fly() {
+        print("The dodo is extinct and cannot fly.")
     }
 }
 
-class Eagle extends Bird {
-    public Eagle() {
-        super("Eagle");
+class Penguin: Bird {
+    override init(name: String = "") {
+        super.init(name: "Penguin")
     }
 
-    @Override
-    void fly() {
-        System.out.println("The eagle is soaring through the sky!");
+    override func fly() {
+        print("The penguin cannot fly.")
+    }
+
+    func slide() {
+        print("The penguin is sliding on its belly!")
+    }
+
+    func swim() {
+        print("The penguin is swimming in the water!")
     }
 }
 
-class Sparrow extends Bird {
-    public Sparrow() {
-        super("Sparrow");
+class Eagle: Bird {
+    override init(name: String = "") {
+        super.init(name: "Eagle")
     }
 
-    @Override
-    void fly() {
-        System.out.println("The sparrow is fluttering its wings!");
+    override func fly() {
+        print("The eagle is soaring through the sky!")
+    }
+}
+
+class Sparrow: Bird {
+    override init(name: String = "") {
+        super.init(name: "Sparrow")
+    }
+
+    override func fly() {
+        print("The sparrow is fluttering its wings!")
+    }
+}
+
+class Pigeon: Bird {
+    override init(name: String = "") {
+        super.init(name: "Pigeon")
+    }
+
+    func makeCooingSound() {
+        print("The pigeon is making a cooing sound.")
+    }
+
+    override func fly() {
+        print("The pigeon is fluttering its wings!")
     }
 }
 
 // Client code
-public class OpenClosedPrinciple {
-    public static void main(String[] args) {
-        Bird bird1 = new Eagle();
-        bird1.fly();
+let bird1: Bird = Eagle()
+bird1.fly()
 
-        Bird bird2 = new Dodo();
-        bird2.fly();
+let bird2: Bird = Dodo()
+bird2.fly()
 
-        Bird bird3 = new Pigeon();
-        bird3.fly();
-    }
-}
-
-/*
-The eagle is soaring through the sky!
-The dodo is extinct and cannot fly.
-The pigeon is fluttering its wings!
-*/
-
-class Pigeon extends Bird {
-    public Pigeon() {
-        super("Pigeon");
-    }
-
-    void makeCooingSound() {
-        System.out.println("The pigeon is making a cooing sound.");
-    }
-
-    @Override
-    void fly() {
-        System.out.println("The pigeon is fluttering its wings!");
-    }
-}
+let bird3: Bird = Pigeon()
+bird3.fly()

@@ -1,76 +1,65 @@
-
 class Rectangle {
-    private int height;
-    private int width;
+    private var height: Int
+    private var width: Int
 
-    public Rectangle(int l, int w) {
-        this.height = l;
-        this.width = w;
+    init(height: Int, width: Int) {
+        self.height = height
+        self.width = width
     }
 
-    public void setWidth(int w) {
-        this.width = w;
+    func setWidth(_ width: Int) {
+        self.width = width
     }
 
-    public void setHeight(int h) {
-        this.height = h;
+    func setHeight(_ height: Int) {
+        self.height = height
     }
 
-    public int getWidth() {
-        return this.width;
+    func getWidth() -> Int {
+        return width
     }
 
-    public int getHeight() {
-        return this.height;
-    }
-}
-
-class Square extends Rectangle {
-    public Square(int l) {
-        super(l, l);
-    }
-
-    @Override
-    public void setWidth(int w) {
-        super.setWidth(w);
-        super.setHeight(w);
-    }
-
-    @Override
-    public void setHeight(int h) {
-        super.setWidth(h);
-        super.setHeight(h);
+    func getHeight() -> Int {
+        return height
     }
 }
 
-public class LiskovSubstitutionPrinciple {
-    public static void testRectangle() {
-        Rectangle r = new Rectangle(10, 20);
-        testRect(r);
+class Square: Rectangle {
+    init(sideLength: Int) {
+        super.init(height: sideLength, width: sideLength)
     }
 
-    public static void testSquare() {
-        Square s = new Square(10);
-        s.setWidth(20);
-        testRect(s);
+    override func setWidth(_ width: Int) {
+        super.setWidth(width)
+        super.setHeight(width)
     }
 
-    private static void testRect(Rectangle rect) {
-        rect.setHeight(10);
-        rect.setWidth(20);
-        if(200 == rect.getHeight() * rect.getWidth())
-            System.out.println("success");
-        else
-            System.out.println("failure");
-    }
-
-    public static void main(String[] args) {
-        testRectangle();
-        testSquare();
+    override func setHeight(_ height: Int) {
+        super.setWidth(height)
+        super.setHeight(height)
     }
 }
 
-/*
-success
-failure
-*/
+func testRectangle() {
+    let r = Rectangle(height: 10, width: 20)
+    testRect(rect: r)
+}
+
+func testSquare() {
+    let s = Square(sideLength: 10)
+    s.setWidth(20)
+    testRect(rect: s)
+}
+
+func testRect(rect: Rectangle) {
+    rect.setHeight(10)
+    rect.setWidth(20)
+    if 200 == rect.getHeight() * rect.getWidth() {
+        print("success")
+    } else {
+        print("failure")
+    }
+}
+
+testRectangle()
+testSquare()

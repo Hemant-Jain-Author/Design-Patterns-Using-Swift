@@ -1,40 +1,43 @@
-abstract class AbstractClass {
-    final void templateMethod() {
-        operation1();
-        operation2();
+import Foundation
+
+class AbstractClass {
+    final func templateMethod() {
+        operation1()
+        operation2()
     }
 
-    abstract void operation1();
-    abstract void operation2();
-}
-
-class ConcreteClass1 extends AbstractClass {
-    @Override
-    void operation1() {
-        System.out.println("Concrete Class 1 : Operation 1");
+    func operation1() {
+        fatalError("Abstract method. Subclasses must implement operation1.")
     }
 
-    @Override
-    void operation2() {
-        System.out.println("Concrete Class 1 : Operation 2");
+    func operation2() {
+        fatalError("Abstract method. Subclasses must implement operation2.")
     }
 }
 
-class ConcreteClass2 extends AbstractClass {
-    @Override
-    void operation1() {
-        System.out.println("Concrete Class 2 : Operation 1");
+class ConcreteClass1: AbstractClass {
+    override func operation1() {
+        print("Concrete Class 1 : Operation 1")
     }
 
-    @Override
-    void operation2() {
-        System.out.println("Concrete Class 2 : Operation 2");
+    override func operation2() {
+        print("Concrete Class 1 : Operation 2")
     }
 }
 
-public class TemplatePattern {
-    public static void main(String[] args) {
-        AbstractClass concreteClass = new ConcreteClass1();
-        concreteClass.templateMethod();
+class ConcreteClass2: AbstractClass {
+    override func operation1() {
+        print("Concrete Class 2 : Operation 1")
+    }
+
+    override func operation2() {
+        print("Concrete Class 2 : Operation 2")
     }
 }
+
+func testTemplatePattern() {
+    let concreteClass = ConcreteClass1()
+    concreteClass.templateMethod()
+}
+
+testTemplatePattern()

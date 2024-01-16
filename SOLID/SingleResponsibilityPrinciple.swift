@@ -1,79 +1,67 @@
 class Animal {
-    String name;
+    var name: String
 
-    public Animal(String name) {
-        this.name = name;
+    init(name: String) {
+        self.name = name
     }
 
-    public void eat() {
-        System.out.println(name + " is eating.");
+    func eat() {
+        print("\(name) is eating.")
     }
 
-    public void sleep() {
-        System.out.println(name + " is sleeping.");
+    func sleep() {
+        print("\(name) is sleeping.")
     }
 
-    public void makeSound() {
-        System.out.println(name + " is making a sound.");
-    }
-}
-
-class Mammal extends Animal {
-    public Mammal(String name) {
-        super(name);
-    }
-
-    public void giveBirth() {
-        System.out.println(name + " is giving birth to live young.");
+    func makeSound() {
+        print("\(name) is making a sound.")
     }
 }
 
-class Reptile extends Animal {
-    public Reptile(String name) {
-        super(name);
+class Mammal: Animal {
+    override init(name: String) {
+        super.init(name: name)
     }
 
-    public void layEggs() {
-        System.out.println(name + " is laying eggs.");
+    func giveBirth() {
+        print("\(name) is giving birth to live young.")
     }
 }
 
-class Bird extends Animal {
-    public Bird(String name) {
-        super(name);
+class Reptile: Animal {
+    override init(name: String) {
+        super.init(name: name)
     }
 
-    public void fly() {
-        System.out.println(name + " is flying.");
+    func layEggs() {
+        print("\(name) is laying eggs.")
+    }
+}
+
+class Bird: Animal {
+    override init(name: String) {
+        super.init(name: name)
     }
 
-    public void layEggs() {
-        System.out.println(name + " is laying eggs.");
+    func fly() {
+        print("\(name) is flying.")
+    }
+
+    func layEggs() {
+        print("\(name) is laying eggs.")
     }
 }
 
 // Client code.
-public class SingleResponsibilityPrinciple {
-    public static void main(String[] args) {
-        Mammal animal1 = new Mammal("Cat");
-        animal1.giveBirth();
-        animal1.makeSound();
+let animal1 = Mammal(name: "Cat")
+animal1.giveBirth()
+animal1.makeSound()
 
-        Reptile animal2 = new Reptile("Snake");
-        animal2.layEggs();
-        animal2.eat();
+let animal2 = Reptile(name: "Snake")
+animal2.layEggs()
+animal2.eat()
 
-        Bird animal3 = new Bird("Eagle");
-        animal3.fly();
-        animal3.layEggs();
-    }
-}
+let animal3 = Bird(name: "Eagle")
+animal3.layEggs()
+animal3.fly()
 
-/*
-Cat is giving birth to live young.
-Cat is making a sound.
-Snake is laying eggs.
-Snake is eating.
-Eagle is flying.
-Eagle is laying eggs.
-*/

@@ -1,74 +1,72 @@
-import java.util.Arrays;
+import Foundation
 
-interface Sorting {
-    void sort(int[] numbers);
+protocol Sorting {
+    func sort(_ numbers: inout [Int])
 }
 
-class BubbleSort implements Sorting {
-    @Override
-    public void sort(int[] numbers) {
+class BubbleSort: Sorting {
+    func sort(_ numbers: inout [Int]) {
         // Bubble Sort Algorithm
-        System.out.println("Bubble Sort Algorithm executed.");
-        int size = numbers.length;
-        for (int i = 0; i < size - 1; i++) {
-            for (int j = 0; j < size - i - 1; j++) {
-                if (numbers[j] > numbers[j + 1]) {
+        print("Bubble Sort Algorithm executed.")
+        let size = numbers.count
+        for i in 0..<(size - 1) {
+            for j in 0..<(size - i - 1) {
+                if numbers[j] > numbers[j + 1] {
                     // Swapping
-                    int temp = numbers[j];
-                    numbers[j] = numbers[j + 1];
-                    numbers[j + 1] = temp;
+                    let temp = numbers[j]
+                    numbers[j] = numbers[j + 1]
+                    numbers[j + 1] = temp
                 }
             }
         }
     }
 }
 
-class SelectionSort implements Sorting {
-    @Override
-    public void sort(int[] numbers) {
+class SelectionSort: Sorting {
+    func sort(_ numbers: inout [Int]) {
         // Selection Sort Algorithm
-        System.out.println("Selection Sort Algorithm executed.");
-        int size = numbers.length;
-        for (int i = 0; i < size - 1; i++) {
-            int maxIndex = 0;
-            for (int j = 1; j < size - i; j++) {
-                if (numbers[j] > numbers[maxIndex]) {
-                    maxIndex = j;
+        print("Selection Sort Algorithm executed.")
+        let size = numbers.count
+        for i in 0..<(size - 1) {
+            var maxIndex = 0
+            for j in 1..<(size - i) {
+                if numbers[j] > numbers[maxIndex] {
+                    maxIndex = j
                 }
             }
-            int temp = numbers[size - 1 - i];
-            numbers[size - 1 - i] = numbers[maxIndex];
-            numbers[maxIndex] = temp;
+            let temp = numbers[size - 1 - i]
+            numbers[size - 1 - i] = numbers[maxIndex]
+            numbers[maxIndex] = temp
         }
     }
 }
 
 class StrategyClass {
-    private Sorting sorter;
+    private var sorter: Sorting
 
-    StrategyClass(Sorting algo) {
-        this.sorter = algo;
+    init(_ algo: Sorting) {
+        self.sorter = algo
     }
 
-    void setSorter(Sorting algo) {
-        this.sorter = algo;
+    func setSorter(_ algo: Sorting) {
+        self.sorter = algo
     }
 
-    void sort(int[] a) {
-        this.sorter.sort(a);
-    }
-}
-
-public class StrategyPatternSorter {
-    public static void main(String[] args) {
-        int[] a = {4, 5, 3, 2, 6, 7, 1, 8, 9, 10};
-        StrategyClass s = new StrategyClass(new BubbleSort());
-        s.sort(a);
-        System.out.println(Arrays.toString(a));
-
-        int[] b = {4, 5, 3, 2, 6, 7, 1, 8, 9, 10};
-        s.setSorter(new SelectionSort());
-        s.sort(b);
-        System.out.println(Arrays.toString(b));
+    func sort(_ a: inout [Int]) {
+        self.sorter.sort(&a)
     }
 }
+
+func testStrategyPatternSorter() {
+    var a = [4, 5, 3, 2, 6, 7, 1, 8, 9, 10]
+    let s = StrategyClass(BubbleSort())
+    s.sort(&a)
+    print(a)
+
+    var b = [4, 5, 3, 2, 6, 7, 1, 8, 9, 10]
+    s.setSorter(SelectionSort())
+    s.sort(&b)
+    print(b)
+}
+
+testStrategyPatternSorter()

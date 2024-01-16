@@ -1,65 +1,47 @@
+import Foundation
 
-interface Printable {
-    void print(String document);
+protocol Printable {
+    func printDocument(_ document: String)
 }
 
-interface Scannable {
-    void scan();
+protocol Scannable {
+    func scan()
 }
 
-interface Faxable {
-    void fax(String document);
+protocol Faxable {
+    func faxDocument(_ document: String)
 }
 
-class BasicInkjetPrinter implements Printable, Scannable {
-    @Override
-    public void print(String document) {
-        System.out.printf("Printing %s using basic inkjet printer%n", document);
+class BasicInkjetPrinter: Printable, Scannable {
+    func printDocument(_ document: String) {
+        print("Printing \(document) using basic inkjet printer")
     }
 
-    @Override
-    public void scan() {
-        System.out.println("Scanning using basic inkjet printer");
+    func scan() {
+        print("Scanning using basic inkjet printer")
     }
 }
 
-class HighEndOfficePrinter implements Printable, Scannable, Faxable {
-    @Override
-    public void print(String document) {
-        System.out.printf("Printing %s using high end office printer%n", document);
+class HighEndOfficePrinter: Printable, Scannable, Faxable {
+    func printDocument(_ document: String) {
+        print("Printing \(document) using high-end office printer")
     }
 
-    @Override
-    public void scan() {
-        System.out.println("Scanning using high end office printer");
+    func scan() {
+        print("Scanning using high-end office printer")
     }
 
-    @Override
-    public void fax(String document) {
-        System.out.printf("Faxing %s using high end office printer%n", document);
+    func faxDocument(_ document: String) {
+        print("Faxing \(document) using high-end office printer")
     }
 }
 
 // Client code
-public class InterfaceSegregationPrinciple {
-    public static void main(String[] args) {
-        // BasicInkjetPrinter
-        BasicInkjetPrinter basicPrinter = new BasicInkjetPrinter();
-        basicPrinter.print("Sample Document");
-        basicPrinter.scan();
+let basicPrinter = BasicInkjetPrinter()
+basicPrinter.printDocument("Sample Document")
+basicPrinter.scan()
 
-        // HighEndOfficePrinter
-        HighEndOfficePrinter officePrinter = new HighEndOfficePrinter();
-        officePrinter.print("Important Report");
-        officePrinter.scan();
-        officePrinter.fax("Confidential Memo");
-    }
-}
-
-/*
-Printing Sample Document using basic inkjet printer
-Scanning using basic inkjet printer
-Printing Important Report using high end office printer
-Scanning using high end office printer
-Faxing Confidential Memo using high end office printer
-*/
+let officePrinter = HighEndOfficePrinter()
+officePrinter.printDocument("Important Report")
+officePrinter.scan()
+officePrinter.faxDocument("Confidential Memo")

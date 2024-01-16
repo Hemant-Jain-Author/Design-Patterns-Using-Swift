@@ -1,91 +1,63 @@
-import java.util.HashMap;
-import java.util.Map;
+import Foundation
 
-abstract class Shape implements Cloneable {
-    private String color;
-
-    public Shape() {
-        this.color = "";
-    }
-
-    @Override
-    public abstract String toString();
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    public abstract Shape cloneShape();
+protocol Shape {
+    var color: String { get set }
+    func clone() -> Shape
+    func description() -> String
 }
 
-class Rectangle extends Shape {
-    @Override
-    public String toString() {
-        return "Rectangle.";
+class Rectangle: Shape {
+    var color: String = ""
+
+    required init(color: String) {
+        self.color = color
     }
 
-    @Override
-    public Shape cloneShape() {
-        try {
-            return (Shape) this.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
+    func clone() -> Shape {
+        return type(of: self).init(color: color)
+    }
+
+    func description() -> String {
+        return "Rectangle."
     }
 }
 
-class Circle extends Shape {
-    @Override
-    public String toString() {
-        return "Circle.";
+class Circle: Shape {
+    var color: String = ""
+
+    required init(color: String) {
+        self.color = color
     }
 
-    @Override
-    public Shape cloneShape() {
-        try {
-            return (Shape) this.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
+    func clone() -> Shape {
+        return type(of: self).init(color: color)
+    }
+
+    func description() -> String {
+        return "Circle."
     }
 }
 
 class ShapeRegistry {
-    private static final Map<String, Shape> shapes = new HashMap<>();
+    private static var shapes: [String: Shape] = [:]
 
-    static {
-        load();
+    static func addShape(key: String, value: Shape) {
+        shapes[key] = value
     }
 
-    static void addShape(String key, Shape value) {
-        shapes.put(key, value);
+    static func getShape(key: String) -> Shape? {
+        return shapes[key]?.clone()
     }
 
-    static Shape getShape(String key) {
-        if (shapes.containsKey(key)) {
-            return shapes.get(key).cloneShape();
-        }
-        return null;
-    }
-
-    static void load() {
-        addShape("circle", new Circle());
-        addShape("rectangle", new Rectangle());
+    static func load() {
+        addShape(key: "circle", value: Circle(color:"Red"))
+        addShape(key: "rectangle", value: Rectangle(color:"Red"))
     }
 }
 
-public class PrototypePatternShape {
-    public static void main(String[] args) {
-        ShapeRegistry.load();
-        Shape c = ShapeRegistry.getShape("circle");
-        Shape r = ShapeRegistry.getShape("rectangle");
-        System.out.println(c + " " + r);
-    }
+// Client code
+ShapeRegistry.load()
+if let c = ShapeRegistry.getShape(key: "circle"), 
+    let r = ShapeRegistry.getShape(key: "rectangle") {
+    print("\(c.description()) \(r.description())")
 }
-
-/*
- Circle. Rectangle.
- */

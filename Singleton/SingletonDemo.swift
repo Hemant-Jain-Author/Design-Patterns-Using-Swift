@@ -1,49 +1,37 @@
 class Database {
-    public Database() {
-        System.out.println("Database created");
+    init() {
+        print("Database created")
     }
 
-    public void addData(String data) {
-        System.out.println(data);
+    func addData(_ data: String) {
+        print(data)
     }
 }
 
 class Singleton {
-    private static Singleton instance = null;
-    private Database db;
+    private static var instance: Singleton?
+    private var db: Database
 
-    private Singleton() {
-        instance = this;
-        db = new Database();
+    private init() {
+        db = Database()
     }
 
-    public static Singleton getInstance() {
-        if (instance == null) {
-            new Singleton();
+    static func getInstance() -> Singleton {
+        if instance == nil {
+            instance = Singleton()
         }
-        return instance;
+        return instance!
     }
 
-    public void addData(String data) {
-        db.addData(data);
-    }
-}
-
-public class SingletonDemo {
-    public static void main(String[] args) {
-        Singleton s1 = Singleton.getInstance();
-        Singleton s2 = Singleton.getInstance();
-
-        System.out.println(s1);
-        System.out.println(s2);
-
-        s2.addData("Hello, world!");
+    func addData(_ data: String) {
+        db.addData(data)
     }
 }
 
-/*
-Database created
-Singleton@7344699f
-Singleton@7344699f
-Hello, world!
- */
+let s1 = Singleton.getInstance()
+let s2 = Singleton.getInstance()
+
+print(ObjectIdentifier(s1))
+print(ObjectIdentifier(s2))
+
+s2.addData("Hello, world!")

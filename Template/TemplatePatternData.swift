@@ -1,52 +1,56 @@
-abstract class AddDataTemplate {
-    final void addData() {
-        open();
-        add();
-        close();
+import Foundation
+
+class AddDataTemplate {
+    final func addData() {
+        open()
+        add()
+        close()
     }
 
-    abstract void open();
-    abstract void add();
-    abstract void close();
-}
-
-class AddDataToFile extends AddDataTemplate {
-    @Override
-    void open() {
-        System.out.println("Open file.");
+    func open() {
+        fatalError("Abstract method. Subclasses must implement open.")
     }
 
-    @Override
-    void add() {
-        System.out.println("Add data to file.");
+    func add() {
+        fatalError("Abstract method. Subclasses must implement add.")
     }
 
-    @Override
-    void close() {
-        System.out.println("Close file");
+    func close() {
+        fatalError("Abstract method. Subclasses must implement close.")
     }
 }
 
-class AddDataToDB extends AddDataTemplate {
-    @Override
-    void open() {
-        System.out.println("Open Database.");
+class AddDataToFile: AddDataTemplate {
+    override func open() {
+        print("Open file.")
     }
 
-    @Override
-    void add() {
-        System.out.println("Add data to Database.");
+    override func add() {
+        print("Add data to file.")
     }
 
-    @Override
-    void close() {
-        System.out.println("Close Database.");
+    override func close() {
+        print("Close file.")
     }
 }
 
-public class TemplatePatternData {
-    public static void main(String[] args) {
-        AddDataTemplate addDataToDB = new AddDataToDB();
-        addDataToDB.addData();
+class AddDataToDB: AddDataTemplate {
+    override func open() {
+        print("Open Database.")
+    }
+
+    override func add() {
+        print("Add data to Database.")
+    }
+
+    override func close() {
+        print("Close Database.")
     }
 }
+
+func testTemplatePatternData() {
+    let addDataToDB = AddDataToDB()
+    addDataToDB.addData()
+}
+
+testTemplatePatternData()

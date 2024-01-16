@@ -1,59 +1,51 @@
-interface BulbState {
-    void flip(BulbControl bc);
-    String toString();
+protocol BulbState {
+    func flip(_ bc: BulbControl)
+    var description: String { get }
 }
 
 class BulbControl {
-    private BulbState current;
+    private var current: BulbState
 
-    BulbControl() {
-        this.current = new Off();
+    init() {
+        self.current = Off()
     }
 
-    void setState(BulbState state) {
-        this.current = state;
+    func setState(_ state: BulbState) {
+        self.current = state
     }
 
-    void flip() {
-        this.current.flip(this);
+    func flip() {
+        self.current.flip(self)
     }
 
-    String toStringState() {
-        return this.current.toString();
-    }
-}
-
-class On implements BulbState {
-    @Override
-    public void flip(BulbControl bc) {
-        bc.setState(new Off());
-    }
-
-    @Override
-    public String toString() {
-        return "On";
+    var descriptionState: String {
+        return self.current.description
     }
 }
 
-class Off implements BulbState {
-    @Override
-    public void flip(BulbControl bc) {
-        bc.setState(new On());
+class On: BulbState {
+    func flip(_ bc: BulbControl) {
+        bc.setState(Off())
     }
 
-    @Override
-    public String toString() {
-        return "Off";
+    var description: String {
+        return "On"
+    }
+}
+
+class Off: BulbState {
+    func flip(_ bc: BulbControl) {
+        bc.setState(On())
+    }
+
+    var description: String {
+        return "Off"
     }
 }
 
 // Client code.
-public class StatePattern {
-    public static void main(String[] args) {
-        BulbControl c = new BulbControl();
-        c.flip();
-        System.out.println(c.toStringState());
-        c.flip();
-        System.out.println(c.toStringState());
-    }
-}
+let c = BulbControl()
+c.flip()
+print(c.descriptionState)
+c.flip()
+print(c.descriptionState)

@@ -1,73 +1,74 @@
-abstract class AbstractWorker {
-    final void dailyRoutine() {
-        wakeUp();
-        eatBreakfast();
-        goToWork();
-        work();
-        comeBackHome();
-        eatDinner();
-        sleep();
+import Foundation
+
+class AbstractWorker {
+    final func dailyRoutine() {
+        wakeUp()
+        eatBreakfast()
+        goToWork()
+        work()
+        comeBackHome()
+        eatDinner()
+        sleep()
     }
 
-    void wakeUp() {
-        System.out.println("Wake Up");
+    func wakeUp() {
+        print("Wake Up")
     }
 
-    void eatBreakfast() {
-        System.out.println("Eat Breakfast");
+    func eatBreakfast() {
+        print("Eat Breakfast")
     }
 
-    void goToWork() {
-        System.out.println("Go to work");
+    func goToWork() {
+        print("Go to work")
     }
 
-    abstract void work();
-
-    void comeBackHome() {
-        System.out.println("Come back Home");
+    func work() {
+        fatalError("Abstract method. Subclasses must implement work.")
     }
 
-    void eatDinner() {
-        System.out.println("Eat dinner");
+    func comeBackHome() {
+        print("Come back Home")
     }
 
-    void sleep() {
-        System.out.println("Sleep");
+    func eatDinner() {
+        print("Eat dinner")
     }
-}
 
-class Doctor extends AbstractWorker {
-    @Override
-    void work() {
-        System.out.println("...Treat Patients...");
+    func sleep() {
+        print("Sleep")
     }
 }
 
-class FireFighter extends AbstractWorker {
-    @Override
-    void work() {
-        System.out.println("...Fight Fire...");
+class Doctor: AbstractWorker {
+    override func work() {
+        print("...Treat Patients...")
     }
 }
 
-class SuperHero extends AbstractWorker {
-    @Override
-    void work() {
-        System.out.println("...Save the world!...");
+class FireFighter: AbstractWorker {
+    override func work() {
+        print("...Fight Fire...")
     }
 }
 
-public class TemplatePatternPerson {
-    public static void main(String[] args) {
-        Doctor doctor = new Doctor();
-        doctor.dailyRoutine();
-        System.out.println();
-
-        FireFighter fireFighter = new FireFighter();
-        fireFighter.dailyRoutine();
-        System.out.println();
-
-        SuperHero superHero = new SuperHero();
-        superHero.dailyRoutine();
+class SuperHero: AbstractWorker {
+    override func work() {
+        print("...Save the world!...")
     }
 }
+
+func testTemplatePatternPerson() {
+    let doctor = Doctor()
+    doctor.dailyRoutine()
+    print()
+
+    let fireFighter = FireFighter()
+    fireFighter.dailyRoutine()
+    print()
+
+    let superHero = SuperHero()
+    superHero.dailyRoutine()
+}
+
+testTemplatePatternPerson()

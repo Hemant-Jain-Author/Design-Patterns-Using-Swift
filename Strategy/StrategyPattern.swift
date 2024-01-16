@@ -1,44 +1,44 @@
-interface Strategy {
-    void execute(int data);
+import Foundation
+
+protocol Strategy {
+    func execute(_ data: Int)
 }
 
-class ConcreteStrategy1 implements Strategy {
-    @Override
-    public void execute(int data) {
-        System.out.println("ConcreteStrategy1 execute");
+class ConcreteStrategy1: Strategy {
+    func execute(_ data: Int) {
+        print("ConcreteStrategy1 execute")
     }
 }
 
-class ConcreteStrategy2 implements Strategy {
-    @Override
-    public void execute(int data) {
-        System.out.println("ConcreteStrategy2 execute");
+class ConcreteStrategy2: Strategy {
+    func execute(_ data: Int) {
+        print("ConcreteStrategy2 execute")
     }
 }
 
 class Context {
-    private Strategy strategy;
+    private var strategy: Strategy
 
-    Context(Strategy strategy) {
-        this.strategy = strategy;
+    init(strategy: Strategy) {
+        self.strategy = strategy
     }
 
-    void setStrategy(Strategy strategy) {
-        this.strategy = strategy;
+    func setStrategy(_ strategy: Strategy) {
+        self.strategy = strategy
     }
 
-    void execute() {
-        int data = 1;
-        this.strategy.execute(data);
-    }
-}
-
-public class StrategyPattern {
-    public static void main(String[] args) {
-        Context context = new Context(new ConcreteStrategy1());
-        context.execute();
-
-        context.setStrategy(new ConcreteStrategy2());
-        context.execute();
+    func execute() {
+        let data = 1
+        self.strategy.execute(data)
     }
 }
+
+func testStrategyPattern() {
+    let context = Context(strategy: ConcreteStrategy1())
+    context.execute()
+
+    context.setStrategy(ConcreteStrategy2())
+    context.execute()
+}
+
+testStrategyPattern()

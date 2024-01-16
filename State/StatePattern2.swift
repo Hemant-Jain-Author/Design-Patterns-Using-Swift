@@ -1,45 +1,39 @@
-interface State {
-    void handle(Context context);
+protocol State {
+    func handle(_ context: Context)
 }
 
 class Context {
-    private State currentState;
+    private var currentState: State
 
-    Context(State state) {
-        this.currentState = state;
+    init(_ state: State) {
+        self.currentState = state
     }
 
-    void changeState(State state) {
-        this.currentState = state;
+    func changeState(_ state: State) {
+        self.currentState = state
     }
 
-    void request() {
-        this.currentState.handle(this);
-    }
-}
-
-class ConcreteState1 implements State {
-    @Override
-    public void handle(Context context) {
-        System.out.println("ConcreteState1 handle");
-        context.changeState(new ConcreteState2());
+    func request() {
+        self.currentState.handle(self)
     }
 }
 
-class ConcreteState2 implements State {
-    @Override
-    public void handle(Context context) {
-        System.out.println("ConcreteState2 handle");
-        context.changeState(new ConcreteState1());
+class ConcreteState1: State {
+    func handle(_ context: Context) {
+        print("ConcreteState1 handle")
+        context.changeState(ConcreteState2())
+    }
+}
+
+class ConcreteState2: State {
+    func handle(_ context: Context) {
+        print("ConcreteState2 handle")
+        context.changeState(ConcreteState1())
     }
 }
 
 // Client code.
-public class StatePattern2 {
-    public static void main(String[] args) {
-        State state1 = new ConcreteState1();
-        Context context = new Context(state1);
-        context.request();
-        context.request();
-    }
-}
+let state1 = ConcreteState1()
+let context = Context(state1)
+context.request()
+context.request()

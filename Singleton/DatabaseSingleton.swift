@@ -1,73 +1,64 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import SQLite
 
-public class DatabaseSingleton {
-    private static DatabaseSingleton instance;
-    private Connection connection;
-    private PreparedStatement preparedStatement;
+class DatabaseSingleton {
+    private static var instance: DatabaseSingleton?
+    private var connection: Connection?
+    private var preparedStatement: Statement?
 
-    private DatabaseSingleton() {
-        try {
-            System.out.println("Database created");
-            this.connection = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
-        } catch (SQLException e) {
-            e.printStackTrace();
+    private init() {
+        do {
+            print("Database created")
+            connection = try Connection("db.sqlite3")
+        } catch {
+            fatalError("Error creating database: \(error)")
         }
     }
 
-    public static DatabaseSingleton getInstance() {
-        if (instance == null) {
-            instance = new DatabaseSingleton();
+    static func getInstance() -> DatabaseSingleton {
+        if instance == nil {
+            instance = DatabaseSingleton()
         }
-        return instance;
+        return instance!
     }
 
-    public void createTable() {
-        try {
-            this.preparedStatement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS students (id INTEGER, name TEXT);");
-            this.preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addData(int id, String name) {
-        try {
-            String query = "INSERT INTO students (id, name) VALUES (?, ?);";
-            this.preparedStatement = connection.prepareStatement(query);
-            this.preparedStatement.setInt(1, id);
-            this.preparedStatement.setString(2, name);
-            this.preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    func createTable() {
+        do {
+            try connection?.run("CREATE TABLE IF NOT EXISTS students (id INTEGER, name TEXT);")
+        } catch {
+            fatalError("Error creating table: \(error)")
         }
     }
 
-    public void display() {
-        try {
-            this.preparedStatement = connection.prepareStatement("SELECT * FROM students;");
-            ResultSet resultSet = this.preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                System.out.println(resultSet.getInt("id") + " " + resultSet.getString("name"));
+    func addData(id: Int, name: String) {
+        do {
+            let insert = "INSERT INTO students (id, name) VALUES (?, ?);"
+            preparedStatement = try connection?.run(insert, id, name)
+        } catch {
+            fatalError("Error adding data: \(error)")
+        }
+    }
+
+    func display() {
+        do {
+            for row in try connection?.prepare("SELECT * FROM students;") ?? [] {
+                let id = row[0] as! Int
+                let name = row[1] as! String
+                print("ID: \(id), Name: \(name)")
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch {
+            fatalError("Error displaying data: \(error)")
         }
-    }
-
-    public static void main(String[] args) {
-        DatabaseSingleton db1 = DatabaseSingleton.getInstance();
-        DatabaseSingleton db2 = DatabaseSingleton.getInstance();
-        System.out.println("Database Objects DB1: " + db1);
-        System.out.println("Database Objects DB2: " + db2);
-
-        db1.createTable();
-        db1.addData(1, "john");
-        db2.addData(2, "smith");
-
-        db1.display();
     }
 }
+
+let db1 = DatabaseSingleton.getInstance()
+let db2 = DatabaseSingleton.getInstance()
+
+print("Database Objects DB1: \(db1)")
+print("Database Objects DB2: \(db2)")
+
+db1.createTable()
+db1.addData(id: 1, name: "john")
+db2.addData(id: 2, name: "smith")
+
+db1.display()

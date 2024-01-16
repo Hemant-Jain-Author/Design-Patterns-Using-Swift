@@ -1,62 +1,59 @@
-import java.util.HashMap;
-import java.util.Map;
+import Foundation
 
-abstract class Prototype implements Cloneable {
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    abstract void display();
+protocol Clonable {
+    func clone() -> Self
 }
 
-class ConcretePrototype1 extends Prototype {
-    @Override
-    void display() {
-        System.out.println("ConcretePrototype1");
+class Prototype: Clonable {
+    func clone() -> Self {
+        return self
+    }
+
+    func display() {
+        fatalError("Subclasses must override the 'display' method.")
     }
 }
 
-class ConcretePrototype2 extends Prototype {
-    @Override
-    void display() {
-        System.out.println("ConcretePrototype2");
+class ConcretePrototype1: Prototype {
+    override func display() {
+        print("ConcretePrototype1")
+    }
+}
+
+class ConcretePrototype2: Prototype {
+    override func display() {
+        print("ConcretePrototype2")
     }
 }
 
 class PrototypeRegistry {
-    private static final Map<String, Prototype> prototypes = new HashMap<>();
+    private static var prototypes: [String: Clonable] = [:]
 
-    static {
-        load();
+    static func addPrototype(key: String, value: Clonable) {
+        prototypes[key] = value
     }
 
-    static void addPrototype(String key, Prototype value) {
-        prototypes.put(key, value);
+    static func getPrototype(key: String) -> Clonable? {
+        return prototypes[key]?.clone()
     }
 
-    static Prototype getPrototype(String key) throws CloneNotSupportedException {
-        if (prototypes.containsKey(key)) {
-            return (Prototype) prototypes.get(key).clone();
-        }
-        return null;
-    }
-
-    static void load() {
-        addPrototype("CP1", new ConcretePrototype1());
-        addPrototype("CP2", new ConcretePrototype2());
+    static func load() {
+        addPrototype(key: "CP1", value: ConcretePrototype1())
+        addPrototype(key: "CP2", value: ConcretePrototype2())
     }
 }
 
-public class PrototypePattern {
-    public static void main(String[] args) throws CloneNotSupportedException {
-        PrototypeRegistry.load();
-        Prototype c1 = PrototypeRegistry.getPrototype("CP1");
-        Prototype c2 = PrototypeRegistry.getPrototype("CP2");
-        c1.display();
-        c2.display();
+func main() {
+    PrototypeRegistry.load()
+    if let c1 = PrototypeRegistry.getPrototype(key: "CP1") as? Prototype {
+        c1.display()
+    }
+    if let c2 = PrototypeRegistry.getPrototype(key: "CP2") as? Prototype {
+        c2.display()
     }
 }
+
+main()
 
 /*
 ConcretePrototype1

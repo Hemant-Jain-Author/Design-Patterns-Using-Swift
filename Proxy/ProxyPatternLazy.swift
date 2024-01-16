@@ -1,39 +1,47 @@
-interface BookParser {
-    int numPages();
+import Foundation
+
+// BookParser protocol
+protocol BookParser {
+    func numPages() -> Int
 }
 
-class ConcreteBookParser implements BookParser {
-    private int numPages;
+// ConcreteBookParser class conforming to BookParser protocol
+class ConcreteBookParser: BookParser {
+    private var pages: Int
 
-    public ConcreteBookParser() {
-        System.out.println("Concrete Book Parser Created");
+    init() {
+        print("Concrete Book Parser Created")
         // Number of pages calculation heavy operation.
         // Suppose this calculation results in 1000 pages.
-        this.numPages = 1000;
+        self.pages = 1000
     }
 
-    @Override
-    public int numPages() {
-        System.out.println("Concrete Book Parser Request Method");
-        return this.numPages;
+    func numPages() -> Int {
+        print("Concrete Book Parser Request Method")
+        return self.pages
     }
 }
 
-class LazyBookParserProxy implements BookParser {
-    private ConcreteBookParser subject;
+// LazyBookParserProxy class conforming to BookParser protocol
+class LazyBookParserProxy: BookParser {
+    private var subject: ConcreteBookParser?
 
-    @Override
-    public int numPages() {
-        if (subject == null) {
-            subject = new ConcreteBookParser();
+    func numPages() -> Int {
+        if subject == nil {
+            subject = ConcreteBookParser()
         }
-        return subject.numPages();
+        return subject!.numPages()
     }
 }
 
-public class ProxyPatternLazy {
-    public static void main(String[] args) {
-        LazyBookParserProxy proxy = new LazyBookParserProxy();
-        System.out.println(proxy.numPages());
+// Main class
+class ProxyPatternLazy {
+    func main() {
+        let proxy = LazyBookParserProxy()
+        print(proxy.numPages())
     }
 }
+
+// Create an instance of ProxyPatternLazy and call the main method
+let proxyPatternLazy = ProxyPatternLazy()
+proxyPatternLazy.main()

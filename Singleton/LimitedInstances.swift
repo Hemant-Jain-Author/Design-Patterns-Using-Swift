@@ -1,37 +1,31 @@
-import java.util.ArrayList;
-import java.util.List;
+class LimitedInstances {
+    private static var instances: [LimitedInstances] = []
+    private static let limit = 4
 
-public class LimitedInstances {
-    private static List<LimitedInstances> instances = new ArrayList<>();
-    private static final int limit = 4;
+    private init() {}
 
-    private LimitedInstances() {
-    }
-
-    public static LimitedInstances getInstance() {
-        if (instances.size() < limit) {
-            LimitedInstances instance = new LimitedInstances();
-            instances.add(instance);
-            return instance;
+    static func getInstance() -> LimitedInstances {
+        if instances.count < limit {
+            let instance = LimitedInstances()
+            instances.append(instance)
+            return instance
         } else {
-            throw new RuntimeException("Instance Limit reached");
+            fatalError("Instance Limit reached")
         }
     }
+}
 
-    public static void main(String[] args) {
-        try {
-            LimitedInstances.getInstance();
-            LimitedInstances.getInstance();
-            LimitedInstances.getInstance();
-            LimitedInstances.getInstance();
-            LimitedInstances.getInstance();
-            LimitedInstances.getInstance();
-            LimitedInstances.getInstance();
-            LimitedInstances.getInstance();
-            LimitedInstances.getInstance();
-            LimitedInstances.getInstance();
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+do {
+    _ = LimitedInstances.getInstance()
+    _ = LimitedInstances.getInstance()
+    _ = LimitedInstances.getInstance()
+    _ = LimitedInstances.getInstance()
+    _ = LimitedInstances.getInstance()
+    _ = LimitedInstances.getInstance()
+    _ = LimitedInstances.getInstance()
+    _ = LimitedInstances.getInstance()
+    _ = LimitedInstances.getInstance()
+    _ = LimitedInstances.getInstance()
+} catch {
+    print(error.localizedDescription)
 }

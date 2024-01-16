@@ -1,78 +1,65 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import SQLite
 
-public class Database {
-    private static Database _instance = null; // Keep instance reference
-    private Connection connection;
-    
-    private Database() {
-        try {
-            System.out.println("Database created");
-            connection = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
-        } catch (SQLException e) {
-            e.printStackTrace();
+class Database {
+    private static var instance: Database?
+
+    private let connection: Connection
+
+    private init() {
+        do {
+            print("Database created")
+            connection = try Connection("db.sqlite3")
+        } catch {
+            fatalError("Error creating database: \(error)")
         }
     }
 
-    public static Database getInstance() {
-        if (_instance == null) {
-            _instance = new Database();
+    static func getInstance() -> Database {
+        if instance == nil {
+            instance = Database()
         }
-        return _instance;
+        return instance!
     }
 
-    public void createTable() {
-        try {
-            PreparedStatement statement = connection.prepareStatement(
-                "CREATE TABLE IF NOT EXISTS students (id INTEGER, name TEXT);"
-            );
-            statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    func createTable() {
+        do {
+            try connection.run("CREATE TABLE IF NOT EXISTS students (id INTEGER, name TEXT);")
+        } catch {
+            fatalError("Error creating table: \(error)")
         }
     }
 
-    public void addData(int id, String name) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO students (id, name) VALUES (?, ?);"
-            );
-            statement.setInt(1, id);
-            statement.setString(2, name);
-            statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    func addData(id: Int, name: String) {
+        do {
+            let insert = "INSERT INTO students (id, name) VALUES (?, ?);"
+            try connection.run(insert, id, name)
+        } catch {
+            fatalError("Error adding data: \(error)")
         }
     }
 
-    public void display() {
-        try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM students;");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                System.out.println("ID: " + id + ", Name: " + name);
+    func display() {
+        do {
+            let query = "SELECT * FROM students;"
+            for row in try connection.prepare(query) {
+                let id = row[0] as! Int
+                let name = row[1] as! String
+                print("ID: \(id), Name: \(name)")
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch {
+            fatalError("Error displaying data: \(error)")
         }
-    }
-
-    public static void main(String[] args) {
-        Database db1 = Database.getInstance();
-        Database db2 = Database.getInstance();
-
-        System.out.println("Database Objects DB1: " + db1);
-        System.out.println("Database Objects DB2: " + db2);
-
-        db1.createTable();
-        db1.addData(1, "john");
-        db2.addData(2, "smith");
-
-        db1.display();
     }
 }
+
+let db1 = Database.getInstance()
+let db2 = Database.getInstance()
+
+print("Database Objects DB1: \(db1)")
+print("Database Objects DB2: \(db2)")
+
+db1.createTable()
+db1.addData(id: 1, name: "john")
+db2.addData(id: 2, name: "smith")
+
+db1.display()

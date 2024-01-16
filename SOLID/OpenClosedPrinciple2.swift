@@ -1,41 +1,32 @@
 class Animal {
-    String name;
+    var name: String
 
-    public Animal(String name) {
-        this.name = name;
+    init(name: String) {
+        self.name = name
     }
 }
 
-class Bird extends Animal {
-    public Bird(String name) {
-        super(name);
+class Bird: Animal {
+    override init(name: String) {
+        super.init(name: name)
     }
 
-    void fly() {
-        if (name.equals("Dodo")) {
-            System.out.println("The dodo is extinct and cannot fly.");
-        } else if (name.equals("Penguin")) {
-            System.out.println("The penguin cannot fly.");
-        } else if (name.equals("Eagle")) {
-            System.out.println("The eagle is soaring through the sky!");
-        } else if (name.equals("Sparrow")) {
-            System.out.println("The sparrow is fluttering its wings!");
+    func fly() {
+        if name == "Dodo" {
+            print("The dodo is extinct and cannot fly.")
+        } else if name == "Penguin" {
+            print("The penguin cannot fly.")
+        } else if name == "Eagle" {
+            print("The eagle is soaring through the sky!")
+        } else if name == "Sparrow" {
+            print("The sparrow is fluttering its wings!")
         }
     }
 }
 
 // Client code
-public class OpenClosedPrinciple2 {
-    public static void main(String[] args) {
-        Bird bird1 = new Bird("Eagle");
-        bird1.fly();
+let bird1 = Bird(name: "Eagle")
+bird1.fly()
 
-        Bird bird2 = new Bird("Dodo");
-        bird2.fly();
-    }
-}
-
-/*
-The eagle is soaring through the sky!
-The dodo is extinct and cannot fly.
-*/
+let bird2 = Bird(name: "Dodo")
+bird2.fly()

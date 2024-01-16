@@ -1,119 +1,106 @@
-import java.time.Duration;
-import java.time.Instant;
+import Foundation
 
-interface State {
-    void handle(Context context);
+protocol State {
+    func handle(_ context: Context)
 }
 
 class Context {
-    private State currentState;
+    private var currentState: State
 
-    Context(State state) {
-        this.currentState = state;
+    init(state: State) {
+        self.currentState = state
     }
 
-    void changeState(State state) {
-        this.currentState = state;
+    func changeState(_ state: State) {
+        self.currentState = state
     }
 
-    void request() {
-        this.currentState.handle(this);
+    func request() {
+        self.currentState.handle(self)
     }
 }
 
-class ConcreteState1 implements State {
-    private static ConcreteState1 instance;
+class ConcreteState1: State {
+    private static var instance: ConcreteState1?
 
-    private ConcreteState1() {
-    }
+    private init() {}
 
-    static ConcreteState1 getInstance() {
-        if (instance == null) {
-            instance = new ConcreteState1();
+    static func getInstance() -> ConcreteState1 {
+        if instance == nil {
+            instance = ConcreteState1()
         }
-        return instance;
+        return instance!
     }
 
-    @Override
-    public void handle(Context context) {
-        context.changeState(ConcreteState2.getInstance());
+    func handle(_ context: Context) {
+        context.changeState(ConcreteState2.getInstance())
     }
 }
 
-class ConcreteState2 implements State {
-    private static ConcreteState2 instance;
+class ConcreteState2: State {
+    private static var instance: ConcreteState2?
 
-    private ConcreteState2() {
-    }
+    private init() {}
 
-    static ConcreteState2 getInstance() {
-        if (instance == null) {
-            instance = new ConcreteState2();
+    static func getInstance() -> ConcreteState2 {
+        if instance == nil {
+            instance = ConcreteState2()
         }
-        return instance;
+        return instance!
     }
 
-    @Override
-    public void handle(Context context) {
-        context.changeState(ConcreteState3.getInstance());
+    func handle(_ context: Context) {
+        context.changeState(ConcreteState3.getInstance())
     }
 }
 
-class ConcreteState3 implements State {
-    private static ConcreteState3 instance;
+class ConcreteState3: State {
+    private static var instance: ConcreteState3?
 
-    private ConcreteState3() {
-    }
+    private init() {}
 
-    static ConcreteState3 getInstance() {
-        if (instance == null) {
-            instance = new ConcreteState3();
+    static func getInstance() -> ConcreteState3 {
+        if instance == nil {
+            instance = ConcreteState3()
         }
-        return instance;
+        return instance!
     }
 
-    @Override
-    public void handle(Context context) {
-        context.changeState(ConcreteState4.getInstance());
+    func handle(_ context: Context) {
+        context.changeState(ConcreteState4.getInstance())
     }
 }
 
-class ConcreteState4 implements State {
-    private static ConcreteState4 instance;
+class ConcreteState4: State {
+    private static var instance: ConcreteState4?
 
-    private ConcreteState4() {
-    }
+    private init() {}
 
-    static ConcreteState4 getInstance() {
-        if (instance == null) {
-            instance = new ConcreteState4();
+    static func getInstance() -> ConcreteState4 {
+        if instance == nil {
+            instance = ConcreteState4()
         }
-        return instance;
+        return instance!
     }
 
-    @Override
-    public void handle(Context context) {
-        context.changeState(ConcreteState1.getInstance());
-    }
-}
-
-public class StatePatternSingletonComparision {
-    public static void main(String[] args) {
-        ConcreteState1 state1 = ConcreteState1.getInstance();
-        test(state1, 10);
-
-        ConcreteState1 state2 = ConcreteState1.getInstance();
-        test(state2, 10);
-    }
-
-    static void test(State state, int count) {
-        Context context = new Context(state);
-        Instant start = Instant.now();
-        for (int i = 0; i < count; i++) {
-            context.request();
-        }
-        Instant end = Instant.now();
-        Duration duration = Duration.between(start, end);
-        System.out.println(duration.toMillis() / 1000.0);
+    func handle(_ context: Context) {
+        context.changeState(ConcreteState1.getInstance())
     }
 }
+
+func test(state: State, count: Int) {
+    let context = Context(state: state)
+    let start = Date()
+    for _ in 0..<count {
+        context.request()
+    }
+    let end = Date()
+    let duration = end.timeIntervalSince(start)
+    print(duration)
+}
+
+let state1 = ConcreteState1.getInstance()
+test(state: state1, count: 10)
+
+let state2 = ConcreteState1.getInstance()
+test(state: state2, count: 10)

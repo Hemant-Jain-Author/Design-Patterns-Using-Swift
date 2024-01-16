@@ -1,47 +1,35 @@
-import java.util.Objects;
+import Foundation
 
-abstract class IMailSender {
-    abstract void sendMail(String toAddress, String fromAddress, String subject, String body);
+protocol MailSender {
+    func sendMail(toAddress: String, fromAddress: String, subject: String, body: String)
 }
 
-class SmtpServer extends IMailSender {
-    @Override
-    void sendMail(String toAddress, String fromAddress, String subject, String body) {
-        System.out.printf("Send mail: subject: %s from: %s to: %s body: %s%n", subject, fromAddress, toAddress, body);
+class SmtpServer: MailSender {
+    func sendMail(toAddress: String, fromAddress: String, subject: String, body: String) {
+        print("Send mail: subject: \(subject) from: \(fromAddress) to: \(toAddress) body: \(body)")
     }
 }
 
 class EmailSender {
-    private final IMailSender mailSender;
+    private let mailSender: MailSender
 
-    public EmailSender(IMailSender mailSender) {
-        this.mailSender = Objects.requireNonNull(mailSender);
+    init(mailSender: MailSender) {
+        self.mailSender = mailSender
     }
 
-    public void sendEmail(String toAddress, String fromAddress, String subject, String body) {
+    func sendEmail(toAddress: String, fromAddress: String, subject: String, body: String) {
         // Delegate email sending to the mail sender implementation
-        mailSender.sendMail(toAddress, fromAddress, subject, body);
+        mailSender.sendMail(toAddress: toAddress, fromAddress: fromAddress, subject: subject, body: body)
     }
 }
 
 // Client code.
-public class DependencyInversionPrinciple {
-    public static void main(String[] args) {
-        // Create an instance of the SmtpServer class
-        SmtpServer smtpServer = new SmtpServer();
+let smtpServer = SmtpServer()
+let emailSender = EmailSender(mailSender: smtpServer)
 
-        // Create an instance of the EmailSender class and pass in the SmtpServer instance
-        EmailSender emailSender = new EmailSender(smtpServer);
-
-        // Send an email using the EmailSender instance
-        emailSender.sendEmail(
-                "recipient@example.com",
-                "sender@example.com",
-                "mail subject.",
-                "This is a test email body.");
-    }
-}
-
-/*
-Send mail: subject: mail subject. from: sender@example.com to: recipient@example.com body: This is a test email body.
-*/
+emailSender.sendEmail(
+    toAddress: "recipient@example.com",
+    fromAddress: "sender@example.com",
+    subject: "mail subject.",
+    body: "This is a test email body."
+)

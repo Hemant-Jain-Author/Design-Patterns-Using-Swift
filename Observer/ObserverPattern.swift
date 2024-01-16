@@ -1,87 +1,94 @@
-import java.util.ArrayList;
-import java.util.List;
+import Foundation
 
-abstract class Subject {
-    private List<Observer> observers = new ArrayList<>();
+// Subject
+class Subject {
+    private var observers = [Observer]()
 
-    public void attach(Observer observer) {
-        observer.setSubject(this);
-        observers.add(observer);
+    func attach(observer: Observer) {
+        observer.setSubject(subject: self)
+        observers.append(observer)
     }
 
-    public void detach(Observer observer) {
-        observer.setSubject(null);
-        observers.remove(observer);
+    func detach(observer: Observer) {
+        observer.setSubject(subject: nil)
+        observers.removeAll { $0 === observer }
     }
 
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update();
+    func notifyObservers() {
+        for observer in observers {
+            observer.update()
         }
     }
 }
 
-class ConcreteSubject extends Subject {
-    private String state;
+// ConcreteSubject
+class ConcreteSubject: Subject {
+    private var state: String = ""
 
-    public String getState() {
-        return state;
+    func getState() -> String {
+        return state
     }
 
-    public void setState(String state) {
-        this.state = state;
-        notifyObservers();
-    }
-}
-
-abstract class Observer {
-    protected Subject subject;
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
-    public abstract void update();
-}
-
-class ConcreteObserver1 extends Observer {
-    public ConcreteObserver1(Subject subject) {
-        setSubject(subject);
-        subject.attach(this);
-    }
-
-    @Override
-    public void update() {
-        System.out.println(subject instanceof ConcreteSubject ?
-                ((ConcreteSubject) subject).getState() + " notified to Observer1" : "");
+    func setState(state: String) {
+        self.state = state
+        notifyObservers()
     }
 }
 
-class ConcreteObserver2 extends Observer {
-    public ConcreteObserver2(Subject subject) {
-        setSubject(subject);
-        subject.attach(this);
+// Observer
+class Observer {
+    weak var subject: Subject?
+
+    func setSubject(subject: Subject?) {
+        self.subject = subject
     }
 
-    @Override
-    public void update() {
-        System.out.println(subject instanceof ConcreteSubject ?
-                ((ConcreteSubject) subject).getState() + " notified to Observer2" : "");
+    func update() {
+        // To be implemented by concrete observers
+    }
+}
+
+// ConcreteObserver1
+class ConcreteObserver1: Observer {
+    init(subject: Subject) {
+        super.init()
+        setSubject(subject: subject)
+        subject.attach(observer: self)
+    }
+
+    override func update() {
+        if let concreteSubject = subject as? ConcreteSubject {
+            print("\(concreteSubject.getState()) notified to Observer1")
+        }
     }
 }
 
-public class ObserverPattern {
-    public static void main(String[] args) {
-        ConcreteSubject subject = new ConcreteSubject();
-        ConcreteObserver1 observer1 = new ConcreteObserver1(subject);
-        ConcreteObserver2 observer2 = new ConcreteObserver2(subject);
+// ConcreteObserver2
+class ConcreteObserver2: Observer {
+    init(subject: Subject) {
+        super.init()
+        setSubject(subject: subject)
+        subject.attach(observer: self)
+    }
 
-        subject.setState("First state");
-        subject.setState("Second state");
+    override func update() {
+        if let concreteSubject = subject as? ConcreteSubject {
+            print("\(concreteSubject.getState()) notified to Observer2")
+        }
     }
 }
+
+// Main
+let subject = ConcreteSubject()
+let observer1 = ConcreteObserver1(subject: subject)
+let observer2 = ConcreteObserver2(subject: subject)
+
+print( "Observers: \(observer1) and \(observer2)")
+subject.setState(state: "First state")
+subject.setState(state: "Second state")
 
 /*
+Observers: ObserverPattern.ConcreteObserver1 and ObserverPattern.ConcreteObserver2
 First state notified to Observer1
 First state notified to Observer2
 Second state notified to Observer1

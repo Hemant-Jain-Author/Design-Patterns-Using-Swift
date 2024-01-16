@@ -1,71 +1,68 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import Foundation
 
 class Publisher {
-    private Map<String, List<Subscriber>> topicSubscribers = new HashMap<>();
+    private var topicSubscribers = [String: [Subscriber]]()
 
-    public void subscribe(Subscriber subscriber, String topic) {
-        topicSubscribers.computeIfAbsent(topic, k -> new ArrayList<>()).add(subscriber);
-        System.out.println("Subscribing: " + subscriber.getId() + " to topic: " + topic);
+    func subscribe(subscriber: Subscriber, topic: String) {
+        topicSubscribers[topic, default: []].append(subscriber)
+        print("Subscribing: \(subscriber.getId()) to topic: \(topic)")
     }
 
-    public void unsubscribe(Subscriber subscriber, String topic) {
-        topicSubscribers.getOrDefault(topic, new ArrayList<>()).remove(subscriber);
-        System.out.println("Unsubscribing: " + subscriber.getId() + " to topic: " + topic);
+    func unsubscribe(subscriber: Subscriber, topic: String) {
+        topicSubscribers[topic]?.removeAll { $0 === subscriber }
+        print("Unsubscribing: \(subscriber.getId()) to topic: \(topic)")
     }
 
-    public void notifySubscribers(String data, String topic) {
-        if (topicSubscribers.containsKey(topic)) {
-            System.out.println("Publishing: " + data + " in topic: " + topic);
-            for (Subscriber subscriber : topicSubscribers.get(topic)) {
-                subscriber.update(data);
+    func notifySubscribers(data: String, topic: String) {
+        if let subscribers = topicSubscribers[topic] {
+            print("Publishing: \(data) in topic: \(topic)")
+            for subscriber in subscribers {
+                subscriber.update(data: data)
             }
         }
     }
 }
 
 class Subscriber {
-    private String id;
+    private var id: String
 
-    public Subscriber(String id) {
-        this.id = id;
+    init(id: String) {
+        self.id = id
     }
 
-    public String getId() {
-        return id;
+    func getId() -> String {
+        return id
     }
 
-    public void update(String data) {
-        System.out.println("Subscriber " + id + " got :: " + data);
-    }
-}
-
-public class PubSub {
-    public static void main(String[] args) {
-        Publisher pub = new Publisher();
-
-        Subscriber sub1 = new Subscriber("Subscriber1");
-        Subscriber sub2 = new Subscriber("Subscriber2");
-        Subscriber sub3 = new Subscriber("Subscriber3");
-
-        System.out.println();
-        pub.subscribe(sub1, "topic1");
-        pub.subscribe(sub2, "topic2");
-        pub.subscribe(sub3, "topic2");
-
-        System.out.println();
-        pub.notifySubscribers("Topic 1 data", "topic1");
-
-        System.out.println();
-        pub.notifySubscribers("Topic 2 data", "topic2");
-
-        System.out.println();
-        pub.unsubscribe(sub3, "topic2");
-        pub.notifySubscribers("Topic 2 data", "topic2");
+    func update(data: String) {
+        print("Subscriber \(id) got :: \(data)")
     }
 }
+
+func main() {
+    let pub = Publisher()
+
+    let sub1 = Subscriber(id: "Subscriber1")
+    let sub2 = Subscriber(id: "Subscriber2")
+    let sub3 = Subscriber(id: "Subscriber3")
+
+    print()
+    pub.subscribe(subscriber: sub1, topic: "topic1")
+    pub.subscribe(subscriber: sub2, topic: "topic2")
+    pub.subscribe(subscriber: sub3, topic: "topic2")
+
+    print()
+    pub.notifySubscribers(data: "Topic 1 data", topic: "topic1")
+
+    print()
+    pub.notifySubscribers(data: "Topic 2 data", topic: "topic2")
+
+    print()
+    pub.unsubscribe(subscriber: sub3, topic: "topic2")
+    pub.notifySubscribers(data: "Topic 2 data", topic: "topic2")
+}
+
+main()
 
 /*
 Subscribing: Subscriber1 to topic: topic1
