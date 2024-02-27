@@ -65,3 +65,10 @@ print("Coffee ingredients are :: \(decorator2.ingredients)")
 let latte: Coffee = MilkDecorator(MilkDecorator(SimpleCoffee()))
 print("Coffee cost is :: \(latte.cost)")
 print("Coffee ingredients are :: \(latte.ingredients)")
+
+/*
+Coffee cost is :: 19
+Coffee ingredients are :: Coffee, Milk, Espresso
+Coffee cost is :: 18
+Coffee ingredients are :: Coffee, Milk, Milk
+*/

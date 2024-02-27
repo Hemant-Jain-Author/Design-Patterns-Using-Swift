@@ -27,3 +27,8 @@ class TerminalExpression: AbstractExpression {
 // Client Code
 let tree: AbstractExpression = NonterminalExpression(TerminalExpression())
 tree.interpret()
+
+/*
+NonTerminalExpression:interpret
+TerminalExpression:interpret
+*/

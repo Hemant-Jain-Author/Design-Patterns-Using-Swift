@@ -60,3 +60,12 @@ c2.operation()
 
 print(c, c2)
 print(c.flyweight, c2.flyweight)
+
+/*
+Operation inside context.
+Operation inside concrete flyweight.
+Operation inside context.
+Operation inside concrete flyweight.
+Game.ClientClass Game.ClientClass
+Game.ConcreteFlyweight Game.ConcreteFlyweight
+*/

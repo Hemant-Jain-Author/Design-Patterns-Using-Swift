@@ -104,3 +104,8 @@ test(state: state1, count: 10)
 
 let state2 = ConcreteState1.getInstance()
 test(state: state2, count: 10)
+
+/*
+2.9802322387695312e-06
+1.9073486328125e-06
+*/

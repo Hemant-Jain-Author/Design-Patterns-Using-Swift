@@ -14,7 +14,7 @@ class Rectangle: Shape {
     }
 
     func draw(x1: Int, y1: Int, x2: Int, y2: Int) {
-        print("Draw rectangle colour: \(self.colour) topleft: (\(x1),\(y1)) rightBottom: (\(x2),\(y2))")
+        //print("Draw rectangle colour: \(self.colour) topleft: (\(x1),\(y1)) rightBottom: (\(x2),\(y2))")
     }
 }
 
@@ -47,3 +47,5 @@ for _ in 0..<100 {
 }
 
 print(factory.getCount())
+
+

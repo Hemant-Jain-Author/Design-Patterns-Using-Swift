@@ -94,40 +94,53 @@ class CareTaker {
     }
 }
 
-func main() {
-    let originator = Originator()
-    let careTaker = CareTaker()
+let originator = Originator()
+let careTaker = CareTaker()
 
-    originator.setState("State 1")
-    careTaker.addMemento(originator.createMemento())
-    print(originator.getState())
+originator.setState("State 1")
+careTaker.addMemento(originator.createMemento())
+print(originator.getState())
 
-    originator.setState("State 2")
-    careTaker.addMemento(originator.createMemento())
-    print(originator.getState())
+originator.setState("State 2")
+careTaker.addMemento(originator.createMemento())
+print(originator.getState())
 
-    originator.setState("State 3")
-    careTaker.addMemento(originator.createMemento())
-    print(originator.getState())
+originator.setState("State 3")
+careTaker.addMemento(originator.createMemento())
+print(originator.getState())
 
-    originator.setMemento(careTaker.undo())
-    print(originator.getState())
+originator.setMemento(careTaker.undo())
+print(originator.getState())
 
-    originator.setMemento(careTaker.undo())
-    print(originator.getState())
+originator.setMemento(careTaker.undo())
+print(originator.getState())
 
-    originator.setState("State 4")
-    careTaker.addMemento(originator.createMemento())
-    print(originator.getState())
+originator.setState("State 4")
+careTaker.addMemento(originator.createMemento())
+print(originator.getState())
 
-    originator.setMemento(careTaker.redo())
-    print(originator.getState())
+originator.setMemento(careTaker.redo())
+print(originator.getState())
 
-    originator.setMemento(careTaker.redo())
-    print(originator.getState())
+originator.setMemento(careTaker.redo())
+print(originator.getState())
 
-    originator.setMemento(careTaker.redo())
-    print(originator.getState())
-}
+originator.setMemento(careTaker.redo())
+print(originator.getState())
 
-main()
+/*
+State 1
+State 2
+State 3
+Undoing state.
+State 2
+Undoing state.
+State 1
+State 4
+Redoing state.
+State 4
+Redoing state.
+State 4
+Redoing state.
+State 4
+*/

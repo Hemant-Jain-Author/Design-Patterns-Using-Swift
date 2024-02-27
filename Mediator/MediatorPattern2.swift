@@ -64,3 +64,12 @@ mediator.addColleague(second)
 
 first.send("Hello, World!", "Second")
 second.send("Hi, World!", "First")
+
+/*
+First Sent Message : Hello, World!
+Mediator pass Message : Hello, World!
+Second Received Message Hello, World!
+Second Sent Message : Hi, World!
+Mediator pass Message : Hi, World!
+First Received Message Hi, World!
+*/

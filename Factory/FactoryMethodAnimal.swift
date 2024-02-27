@@ -57,3 +57,9 @@ class CowFactory: AnimalFactory {
 // Client code for Cow
 let cowFactory: AnimalFactory = CowFactory()
 cowFactory.getAnimal().voice()
+
+/*
+Bhow Bhow!!
+Meow Meow!!
+Gooaa Gooaa!!
+*/

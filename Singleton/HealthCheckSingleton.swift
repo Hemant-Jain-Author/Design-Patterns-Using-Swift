@@ -36,3 +36,8 @@ hc2.addServer()
 
 print(hc1.getServers())
 print(hc2.getServers())
+
+/*
+["Server 1", "Server 2", "Server 1", "Server 2"]
+["Server 1", "Server 2", "Server 1", "Server 2"]
+*/

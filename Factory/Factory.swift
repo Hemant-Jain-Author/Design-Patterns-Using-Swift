@@ -6,13 +6,13 @@ protocol Animal {
 // Concrete Product classes
 class Dog: Animal {
     func speak() {
-        print("Woof!")
+        print("Woof Woof!")
     }
 }
 
 class Cat: Animal {
     func speak() {
-        print("Meow!")
+        print("Meow Meow!")
     }
 }
 
@@ -42,3 +42,8 @@ dog.speak()
 let catFactory: AnimalFactory = CatFactory()
 let cat = catFactory.createAnimal()
 cat.speak()
+
+/*
+Woof Woof!
+Meow Meow!
+*/

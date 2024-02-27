@@ -53,3 +53,10 @@ let c = ClientClass(factory: factory, intrinsicState: "common", extrinsicState: 
 c.operation()
 let c2 = ClientClass(factory: factory, intrinsicState: "common", extrinsicState: "separate2")
 c2.operation()
+
+/*
+Operation inside context: Flyweight2.ClientClass
+Operation inside concrete flyweight: Flyweight2.ConcreteFlyweight
+Operation inside context: Flyweight2.ClientClass
+Operation inside concrete flyweight: Flyweight2.ConcreteFlyweight
+*/

@@ -102,28 +102,38 @@ class Originator {
 }
 
 // Client code
-func main() {
-    let originator = Originator()
-    originator.setState("State 1")
-    print(originator.getState())
+let originator = Originator()
+originator.setState("State 1")
+print(originator.getState())
 
-    originator.setState("State 2")
-    print(originator.getState())
+originator.setState("State 2")
+print(originator.getState())
 
-    originator.setState("State 3")
-    print(originator.getState())
+originator.setState("State 3")
+print(originator.getState())
 
-    originator.undo()
-    print(originator.getState())
+originator.undo()
+print(originator.getState())
 
-    originator.undo()
-    print(originator.getState())
+originator.undo()
+print(originator.getState())
 
-    originator.redo()
-    print(originator.getState())
+originator.redo()
+print(originator.getState())
 
-    originator.redo()
-    print(originator.getState())
-}
+originator.redo()
+print(originator.getState())
 
-main()
+/*
+State 1
+State 2
+State 3
+Undoing state.
+State 2
+Undoing state.
+State 1
+Redoing state.
+State 2
+Redoing state.
+State 3
+*/

@@ -19,7 +19,7 @@ protocol Faxable {
     func faxDocument(_ document: String)
 }
 
-class BasicInkjetPrinter: Printable, Scannable {
+class BasicInkjetPrinter: Printable {
     func printDocument(_ document: String) {
         print("Printing \(document) using basic inkjet printer")
     }
@@ -47,3 +47,10 @@ let officePrinter = HighEndOfficePrinter()
 officePrinter.printDocument("Important Report")
 officePrinter.scan()
 officePrinter.faxDocument("Confidential Memo")
+
+/*
+Printing Sample Document using basic inkjet printer
+Printing Important Report using high-end office printer
+Scanning using high-end office printer
+Faxing Confidential Memo using high-end office printer
+*/

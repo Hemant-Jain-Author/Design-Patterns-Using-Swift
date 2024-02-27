@@ -46,3 +46,11 @@ let component: Component = ConcreteComponent()
 let decorator1: Decorator = ConcreteDecorator1(component)
 let decorator2: Decorator = ConcreteDecorator2(decorator1)
 decorator2.operation()
+
+/*
+ConcreteDecorator2 operation start.
+ConcreteDecorator1 operation start.
+ConcreteComponent operation.
+ConcreteDecorator1 operation end.
+ConcreteDecorator2 operation end.
+*/

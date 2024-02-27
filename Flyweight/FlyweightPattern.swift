@@ -44,3 +44,9 @@ let flyweight2 = factory.getFlyweight(key: "key")
 flyweight1.operation(extrinsicState: nil)
 print("\(flyweight1) \(flyweight2)")
 print("Object count: \(factory.getCount())")
+
+/*
+Operation inside concrete flyweight
+FlyweightPattern.ConcreteFlyweight FlyweightPattern.ConcreteFlyweight
+Object count: 1
+*/

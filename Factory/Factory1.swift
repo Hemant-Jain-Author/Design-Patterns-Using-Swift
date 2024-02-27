@@ -42,3 +42,8 @@ product1.operation()
 let factory2: Factory = ConcreteFactory2()
 let product2 = factory2.createProduct()
 product2.operation()
+
+/*
+Concrete Product1 Operation!
+Concrete Product2 Operation!
+*/

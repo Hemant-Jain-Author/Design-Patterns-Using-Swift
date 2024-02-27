@@ -41,3 +41,10 @@ class SystemManagerFacade {
 // Client code
 let facade = SystemManagerFacade()
 facade.operation()
+
+/*
+Subsystem1 operation1
+Subsystem1 operation2
+Subsystem2 operation1
+Subsystem2 operation2
+*/
