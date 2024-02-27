@@ -1,90 +1,85 @@
 // Abstract ProductA
-interface ProductA {
-    void operationA();
+protocol ProductA {
+    func operationA()
 }
 
 // Concrete ProductA1
-class ProductA1 implements ProductA {
-    @Override
-    public void operationA() {
-        System.out.println("ProductA1 operationA");
+class ProductA1: ProductA {
+    func operationA() {
+        print("ProductA1 operationA")
     }
 }
 
 // Concrete ProductA2
-class ProductA2 implements ProductA {
-    @Override
-    public void operationA() {
-        System.out.println("ProductA2 operationA");
+class ProductA2: ProductA {
+    func operationA() {
+        print("ProductA2 operationA")
     }
 }
 
 // Abstract ProductB
-interface ProductB {
-    void operationB();
+protocol ProductB {
+    func operationB()
 }
 
 // Concrete ProductB1
-class ProductB1 implements ProductB {
-    @Override
-    public void operationB() {
-        System.out.println("ProductB1 operationB");
+class ProductB1: ProductB {
+    func operationB() {
+        print("ProductB1 operationB")
     }
 }
 
 // Concrete ProductB2
-class ProductB2 implements ProductB {
-    @Override
-    public void operationB() {
-        System.out.println("ProductB2 operationB");
+class ProductB2: ProductB {
+    func operationB() {
+        print("ProductB2 operationB")
     }
 }
 
 // Abstract Factory
-interface AbstractFactory {
-    ProductA createProductA();
-    ProductB createProductB();
+protocol AbstractFactory {
+    func createProductA() -> ProductA
+    func createProductB() -> ProductB
 }
 
 // Concrete Factory1
-class ConcreteFactory1 implements AbstractFactory {
-    @Override
-    public ProductA createProductA() {
-        return new ProductA1();
+class ConcreteFactory1: AbstractFactory {
+    func createProductA() -> ProductA {
+        return ProductA1()
     }
 
-    @Override
-    public ProductB createProductB() {
-        return new ProductB1();
+    func createProductB() -> ProductB {
+        return ProductB1()
     }
 }
 
 // Concrete Factory2
-class ConcreteFactory2 implements AbstractFactory {
-    @Override
-    public ProductA createProductA() {
-        return new ProductA2();
+class ConcreteFactory2: AbstractFactory {
+    func createProductA() -> ProductA {
+        return ProductA2()
     }
 
-    @Override
-    public ProductB createProductB() {
-        return new ProductB2();
+    func createProductB() -> ProductB {
+        return ProductB2()
     }
 }
 
 // Client code
-public class AbstractFactoryDemo2 {
-    public static void main(String[] args) {
-        AbstractFactory factory1 = new ConcreteFactory1();
-        ProductA productA1 = factory1.createProductA();
-        ProductB productB1 = factory1.createProductB();
-        productA1.operationA();
-        productB1.operationB();
+let factory1: AbstractFactory = ConcreteFactory1()
+let productA1 = factory1.createProductA()
+let productB1 = factory1.createProductB()
+productA1.operationA()
+productB1.operationB()
 
-        AbstractFactory factory2 = new ConcreteFactory2();
-        ProductA productA2 = factory2.createProductA();
-        ProductB productB2 = factory2.createProductB();
-        productA2.operationA();
-        productB2.operationB();
-    }
-}
+let factory2: AbstractFactory = ConcreteFactory2()
+let productA2 = factory2.createProductA()
+let productB2 = factory2.createProductB()
+productA2.operationA()
+productB2.operationB()
+
+/*
+ProductA1 operationA
+ProductB1 operationB
+ProductA2 operationA
+ProductB2 operationB
+*/

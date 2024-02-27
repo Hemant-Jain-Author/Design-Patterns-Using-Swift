@@ -1,5 +1,13 @@
 // Component
-class Component {
+class Component: Hashable {
+    static func == (lhs: Component, rhs: Component) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+    
     func operation() {
         fatalError("Operation must be overridden by subclasses")
     }
@@ -33,11 +41,22 @@ class Leaf: Component {
 }
 
 // Client code
+let leaf1 = Leaf()
+let leaf2 = Leaf()
+
 let composite = Composite()
-composite.add(Leaf())
+composite.add(leaf1)
 
 let composite2 = Composite()
-composite2.add(Leaf())
+composite2.add(leaf2)
 
 composite.add(composite2)
+
 composite.operation()
+
+/*
+Composite Operation
+Leaf Operation
+Composite Operation
+Leaf Operation
+*/

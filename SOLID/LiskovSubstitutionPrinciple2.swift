@@ -60,8 +60,15 @@ test(bird: sparrow)
 
 let penguin = Penguin(name: "Penguin")
 test(bird: penguin)
-penguin.slide()
-penguin.swim()
 
 let dodo = Dodo(name: "Dodo")
 test(bird: dodo)
+
+/*
+The sparrow is fluttering its wings.
+Bird is flying at a positive height.
+The penguin cannot fly.
+Error: fly() method called; flight height is still zero.
+The dodo is extinct and cannot fly.
+Error: fly() method called; flight height is still zero.
+*/

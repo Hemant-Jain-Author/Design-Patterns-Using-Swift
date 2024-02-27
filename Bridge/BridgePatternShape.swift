@@ -63,3 +63,8 @@ abstraction.draw()
 let c2 = Green()
 let abstraction2 = Rectangle(imp: c2)
 abstraction2.draw()
+
+/*
+Drawing Circle with color Red
+Drawing Rectangle with color Green
+*/

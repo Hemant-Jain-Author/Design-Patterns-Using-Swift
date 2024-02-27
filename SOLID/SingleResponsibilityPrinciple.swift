@@ -65,3 +65,11 @@ let animal3 = Bird(name: "Eagle")
 animal3.layEggs()
 animal3.fly()
 
+/*
+Cat is giving birth to live young.
+Cat is making a sound.
+Snake is laying eggs.
+Snake is eating.
+Eagle is laying eggs.
+Eagle is flying.
+*/

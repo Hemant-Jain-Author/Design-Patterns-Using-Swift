@@ -67,3 +67,7 @@ for i in 0..<5 {
 for val in aggregate {
     print(val, terminator: " ")
 }
+
+/*
+4 3 2 1 0 
+*/

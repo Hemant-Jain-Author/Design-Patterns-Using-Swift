@@ -37,3 +37,8 @@ let state1 = ConcreteState1()
 let context = Context(state1)
 context.request()
 context.request()
+
+/* 
+ConcreteState1 handle
+ConcreteState2 handle 
+*/

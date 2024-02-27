@@ -35,3 +35,10 @@ print(ObjectIdentifier(s1))
 print(ObjectIdentifier(s2))
 
 s2.addData("Hello, world!")
+
+/*
+Database created
+ObjectIdentifier(0x00005620d9423040)
+ObjectIdentifier(0x00005620d9423040)
+Hello, world!
+*/

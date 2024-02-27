@@ -75,3 +75,9 @@ let b2 = Button(label: "Cancel", parent: p)
 
 b1.showHelperText()
 b2.showHelperText()
+
+/*
+Help :: Ok button help text.
+Message passed to next in chain by Button
+Help :: Panel help text.
+*/

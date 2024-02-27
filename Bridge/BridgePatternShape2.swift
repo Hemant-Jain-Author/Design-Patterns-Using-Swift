@@ -60,3 +60,8 @@ square.draw()  // Output: Drawing a square on Windows.
 
 let circle = Circle(implementation: macAPI)
 circle.draw()  // Output: Drawing a circle on Mac.
+
+/*
+Drawing a square on Windows.
+Drawing a circle on Mac.
+*/

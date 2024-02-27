@@ -1,71 +1,65 @@
-import java.util.ArrayList;
-import java.util.List;
-
-interface Iterator {
-    int next();
-    boolean hasNext();
+// Iterator protocol
+protocol Iterator {
+    func next() -> Int?
+    func hasNext() -> Bool
 }
 
-interface Aggregate {
-    Iterator getIterator();
+// Aggregate protocol
+protocol Aggregate {
+    func getIterator() -> Iterator
 }
 
-class ConcreteIterator implements Iterator {
-    private ConcreteAggregate aggregate;
-    private int index;
+// ConcreteIterator class
+class ConcreteIterator: Iterator {
+    private let aggregate: ConcreteAggregate
+    private var index: Int = 0
 
-    public ConcreteIterator(ConcreteAggregate aggregate) {
-        this.aggregate = aggregate;
-        this.index = 0;
+    init(aggregate: ConcreteAggregate) {
+        self.aggregate = aggregate
     }
 
-    @Override
-    public int next() {
-        if (index >= aggregate.getData().size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        int value = aggregate.getData().get(index);
-        index++;
-        return value;
+    func next() -> Int? {
+        guard hasNext() else { return nil }
+        let value = aggregate.getData()[index]
+        index += 1
+        return value
     }
 
-    @Override
-    public boolean hasNext() {
-        return index < aggregate.getData().size();
+    func hasNext() -> Bool {
+        return index < aggregate.getData().count
     }
 }
 
-class ConcreteAggregate implements Aggregate {
-    private List<Integer> data;
+// ConcreteAggregate class
+class ConcreteAggregate: Aggregate {
+    private var data: [Int] = []
 
-    public ConcreteAggregate() {
-        this.data = new ArrayList<>();
+    func addData(_ val: Int) {
+        data.append(val)
     }
 
-    public void addData(int val) {
-        data.add(val);
+    func getIterator() -> Iterator {
+        return ConcreteIterator(aggregate: self)
     }
 
-    @Override
-    public Iterator getIterator() {
-        return new ConcreteIterator(this);
-    }
-
-    public List<Integer> getData() {
-        return data;
+    func getData() -> [Int] {
+        return data
     }
 }
 
-public class IteratorPattern {
-    public static void main(String[] args) {
-        ConcreteAggregate aggregate = new ConcreteAggregate();
-        for (int i = 0; i < 5; i++) {
-            aggregate.addData(i);
-        }
+// Main
+let aggregate = ConcreteAggregate()
+for i in 0..<5 {
+    aggregate.addData(i)
+}
 
-        Iterator iterator = aggregate.getIterator();
-        while (iterator.hasNext()) {
-            System.out.print(iterator.next() + " ");
-        }
+let iterator = aggregate.getIterator()
+while iterator.hasNext() {
+    if let value = iterator.next() {
+        print(value, terminator: " ")
     }
 }
+
+/*
+0 1 2 3 4 
+*/

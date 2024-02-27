@@ -39,3 +39,7 @@ class ConcreteAbstraction: Abstraction {
 let c1 = ConcreteImplementor1()
 let abstraction: Abstraction = ConcreteAbstraction(imp: c1)
 abstraction.operation()
+
+/*
+ConcreteImplementor1 operation
+*/

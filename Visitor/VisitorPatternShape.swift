@@ -1,130 +1,100 @@
-import java.util.ArrayList;
-import java.util.List;
-
-abstract class Shape {
-    abstract void accept(Visitor visitor);
+protocol Visitor {
+    func visit(circle: Circle)
+    func visit(rectangle: Rectangle)
 }
 
-class Circle extends Shape {
-    private int x, y, radius;
+protocol Shape {
+    func accept(visitor: Visitor)
+}
 
-    public Circle(int x, int y, int radius) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
+class Circle: Shape {
+    let x: Int
+    let y: Int
+    let radius: Int
+
+    init(x: Int, y: Int, radius: Int) {
+        self.x = x
+        self.y = y
+        self.radius = radius
     }
 
-    @Override
-    void accept(Visitor visitor) {
-        visitor.visitCircle(this);
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getRadius() {
-        return radius;
+    func accept(visitor: Visitor) {
+        visitor.visit(circle: self)
     }
 }
 
-class Rectangle extends Shape {
-    private int x, y, width, height;
+class Rectangle: Shape {
+    let x: Int
+    let y: Int
+    let width: Int
+    let height: Int
 
-    public Rectangle(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    init(x: Int, y: Int, width: Int, height: Int) {
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
     }
 
-    @Override
-    void accept(Visitor visitor) {
-        visitor.visitRectangle(this);
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+    func accept(visitor: Visitor) {
+        visitor.visit(rectangle: self)
     }
 }
 
-abstract class Visitor {
-    abstract void visitCircle(Circle circle);
-    abstract void visitRectangle(Rectangle rectangle);
-}
-
-class XMLVisitor extends Visitor {
-    @Override
-    void visitCircle(Circle circle) {
-        System.out.printf("<circle>\n  <x>%d</x>\n  <y>%d</y>\n  <radius>%d</radius>\n</circle>%n",
-                          circle.getX(), circle.getY(), circle.getRadius());
+class XMLVisitor: Visitor {
+    func visit(circle: Circle) {
+        print("<circle>\n  <x>\(circle.x)</x>\n  <y>\(circle.y)</y>\n  <radius>\(circle.radius)</radius>\n</circle>")
     }
 
-    @Override
-    void visitRectangle(Rectangle rectangle) {
-        System.out.printf("<rectangle>\n  <x>%d</x>\n  <y>%d</y>\n  <width>%d</width>\n  <height>%d</height>\n</rectangle>%n",
-                          rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+    func visit(rectangle: Rectangle) {
+        print("<rectangle>\n  <x>\(rectangle.x)</x>\n  <y>\(rectangle.y)</y>\n  <width>\(rectangle.width)</width>\n  <height>\(rectangle.height)</height>\n</rectangle>")
     }
 }
 
-class TextVisitor extends Visitor {
-    @Override
-    void visitCircle(Circle circle) {
-        System.out.printf("Circle ( (x : %d, y : %d), radius : %d) %n", circle.getX(), circle.getY(), circle.getRadius());
+class TextVisitor: Visitor {
+    func visit(circle: Circle) {
+        print("Circle ( (x : \(circle.x), y : \(circle.y)), radius : \(circle.radius))")
     }
 
-    @Override
-    void visitRectangle(Rectangle rectangle) {
-        System.out.printf("Rectangle ( (x : %d, y : %d), width : %d, height : %d) %n",
-                          rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+    func visit(rectangle: Rectangle) {
+        print("Rectangle ( (x : \(rectangle.x), y : \(rectangle.y)), width : \(rectangle.width), height : \(rectangle.height))")
     }
 }
 
 class ObjectsStructure {
-    private List<Shape> shapes = new ArrayList<>();
-    private Visitor visitor;
+    private var shapes: [Shape] = []
 
-    public void addShape(Shape shape) {
-        shapes.add(shape);
+    func addShape(_ shape: Shape) {
+        shapes.append(shape)
     }
 
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
-    }
-
-    public void accept() {
-        for (Shape shape : shapes) {
-            shape.accept(visitor);
+    func accept(visitor: Visitor) {
+        for shape in shapes {
+            shape.accept(visitor: visitor)
         }
     }
 }
 
-public class VisitorPatternShape {
-    public static void main(String[] args) {
-        ObjectsStructure os = new ObjectsStructure();
-        os.addShape(new Rectangle(6, 7, 8, 9));
-        os.addShape(new Circle(6, 7, 8));
+// Client code.
+let os = ObjectsStructure()
+os.addShape(Rectangle(x: 6, y: 7, width: 8, height: 9))
+os.addShape(Circle(x: 6, y: 7, radius: 8))
 
-        os.setVisitor(new XMLVisitor());
-        os.accept();
+os.accept(visitor: XMLVisitor())
+os.accept(visitor: TextVisitor())
 
-        os.setVisitor(new TextVisitor());
-        os.accept();
-    }
-}
+/*
+<rectangle>
+  <x>6</x>
+  <y>7</y>
+  <width>8</width>
+  <height>9</height>
+</rectangle>
+<circle>
+  <x>6</x>
+  <y>7</y>
+  <radius>8</radius>
+</circle>
+Rectangle ( (x : 6, y : 7), width : 8, height : 9) 
+Circle ( (x : 6, y : 7), radius : 8) 
+*/

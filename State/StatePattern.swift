@@ -49,3 +49,8 @@ c.flip()
 print(c.descriptionState)
 c.flip()
 print(c.descriptionState)
+
+/* 
+On
+Off
+*/

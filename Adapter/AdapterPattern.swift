@@ -27,3 +27,6 @@ class Adaptee {
 let adapter: DesiredInterface = Adapter()
 adapter.operation()
 
+/*
+Adaptee someOperation() function called.
+*/

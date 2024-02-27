@@ -30,3 +30,8 @@ bird1.fly()
 
 let bird2 = Bird(name: "Dodo")
 bird2.fly()
+
+/*
+The eagle is soaring through the sky!
+The dodo is extinct and cannot fly.
+*/

@@ -1,36 +1,51 @@
-// Abstract class representing a handler
-class Handler {
+// Handler protocol
+protocol Handler {
+    var successor: Handler? { get set }
+    func handleRequest(_ request: String)
+}
+
+// Base Handler class
+class BaseHandler: Handler {
     var successor: Handler?
 
     init(successor: Handler?) {
         self.successor = successor
     }
 
-    func handleRequest() {
-        fatalError("Abstract method. Subclasses must implement this method.")
+    func handleRequest(_ request: String) {
+        // Abstract method
     }
 }
 
-// Concrete class representing a handler
-class ConcreteHandler1: Handler {
-    override func handleRequest() {
-        if true {  // Can handle request.
-            print("Finally handled by ConcreteHandler1")
-        } else if let successor = successor {
-            print("Message passed to next in chain by ConcreteHandler1")
-            successor.handleRequest()
+// ConcreteHandler1 class
+class ConcreteHandler1: BaseHandler {
+    override func handleRequest(_ request: String) {
+        if request == "request1" {
+            print("ConcreteHandler1 handles the request1.")
+        } else {
+            successor?.handleRequest(request)
         }
     }
 }
 
-// Concrete class representing another handler
-class ConcreteHandler2: Handler {
-    override func handleRequest() {
-        if false {  // Can't handle request.
-            print("Finally handled by ConcreteHandler2")
-        } else if let successor = successor {
-            print("Message passed to next in chain by ConcreteHandler2")
-            successor.handleRequest()
+// ConcreteHandler2 class
+class ConcreteHandler2: BaseHandler {
+    override func handleRequest(_ request: String) {
+        if request == "request2" {
+            print("ConcreteHandler2 handles the request2.")
+        } else {
+            successor?.handleRequest(request)
+        }
+    }
+}
+
+// ConcreteHandler3 class
+class ConcreteHandler3: BaseHandler {
+    override func handleRequest(_ request: String) {
+        if request == "request3" {
+            print("ConcreteHandler3 handles the request3.")
+        } else {
+            successor?.handleRequest(request)
         }
     }
 }
@@ -38,4 +53,15 @@ class ConcreteHandler2: Handler {
 // Client code
 let ch1 = ConcreteHandler1(successor: nil)
 let ch2 = ConcreteHandler2(successor: ch1)
-ch2.handleRequest()
+let ch3 = ConcreteHandler3(successor: ch2)
+
+ch3.handleRequest("request1")
+ch3.handleRequest("request2")
+ch3.handleRequest("request3")
+ch3.handleRequest("request4")
+
+/*
+ConcreteHandler1 handles the request1.
+ConcreteHandler2 handles the request2.
+ConcreteHandler3 handles the request3.
+*/

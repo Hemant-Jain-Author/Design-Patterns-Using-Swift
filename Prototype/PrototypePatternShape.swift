@@ -61,3 +61,7 @@ if let c = ShapeRegistry.getShape(key: "circle"),
     let r = ShapeRegistry.getShape(key: "rectangle") {
     print("\(c.description()) \(r.description())")
 }
+
+/*
+Circle. Rectangle.
+*/

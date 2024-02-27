@@ -35,13 +35,11 @@ class LazyBookParserProxy: BookParser {
 }
 
 // Main class
-class ProxyPatternLazy {
-    func main() {
-        let proxy = LazyBookParserProxy()
-        print(proxy.numPages())
-    }
-}
+let proxy = LazyBookParserProxy()
+print(proxy.numPages())
 
-// Create an instance of ProxyPatternLazy and call the main method
-let proxyPatternLazy = ProxyPatternLazy()
-proxyPatternLazy.main()
+/*
+Concrete Book Parser Created
+Concrete Book Parser Request Method
+1000
+*/

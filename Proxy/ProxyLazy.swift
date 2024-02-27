@@ -25,13 +25,9 @@ class Proxy: Subject {
 }
 
 // Main class
-class ProxyLazy {
-    func main() {
-        let proxy = Proxy()
-        proxy.request()
-    }
-}
+let proxy = Proxy()
+proxy.request()
 
-// Create an instance of ProxyLazy and call the main method
-let proxyLazy = ProxyLazy()
-proxyLazy.main()
+/*
+Concrete Subject Request Method
+*/

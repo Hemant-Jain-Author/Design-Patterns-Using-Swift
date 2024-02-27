@@ -60,11 +60,11 @@ courses.publish(subject: "Maths", message: "Tomorrow class at 1")
 // Unsubscribe Eric from English
 courses.unsubscribe(subject: "English", student: eric)
 
-courses.publish(subject: "English", message: "Updated schedule for English")
+courses.publish(subject: "English", message: "Tomorrow class at 3")
 
 /*
 Eric received message on subject 'English': Tomorrow class at 11
 John received message on subject 'English': Tomorrow class at 11
 Eric received message on subject 'Maths': Tomorrow class at 1
-John received message on subject 'English': Updated schedule for English
+John received message on subject 'English': Tomorrow class at 3
 */

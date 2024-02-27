@@ -1,5 +1,12 @@
 import Foundation
 
+// Printer protocol
+protocol Printer {
+    func printDocument(document: String)
+    func scan()
+    func fax(document: String)
+}
+
 protocol Printable {
     func printDocument(_ document: String)
 }
@@ -15,10 +22,6 @@ protocol Faxable {
 class BasicInkjetPrinter: Printable, Scannable {
     func printDocument(_ document: String) {
         print("Printing \(document) using basic inkjet printer")
-    }
-
-    func scan() {
-        print("Scanning using basic inkjet printer")
     }
 }
 
@@ -39,7 +42,6 @@ class HighEndOfficePrinter: Printable, Scannable, Faxable {
 // Client code
 let basicPrinter = BasicInkjetPrinter()
 basicPrinter.printDocument("Sample Document")
-basicPrinter.scan()
 
 let officePrinter = HighEndOfficePrinter()
 officePrinter.printDocument("Important Report")

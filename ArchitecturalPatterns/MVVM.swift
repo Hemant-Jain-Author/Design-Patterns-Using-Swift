@@ -2,14 +2,14 @@ import Foundation
 
 // Model
 class Model {
-    private var data: String?
+    private var data = "Default."
 
     func setData(_ data: String) {
         print("Model: Set data.")
         self.data = data
     }
 
-    func getData() -> String? {
+    func getData() -> String {
         print("Model: Get data.")
         return data
     }
@@ -17,55 +17,45 @@ class Model {
 
 // ViewModel
 class ViewModel {
-    private var model: Model
-    private var data: String?
+    private let model: Model
 
     init(model: Model) {
         self.model = model
-        updateData()
     }
 
-    func updateModel(_ data: String) {
-        print("ViewModel: Update data.")
+    func setData(_ data: String) {
+        print("ViewModel: Set data.")
         model.setData(data)
-        updateData()
     }
 
-    func updateData() {
-        print("ViewModel: Fetch data.")
-        data = model.getData()
-    }
-
-    func getData() -> String? {
-        return data
+    func getData() -> String {
+        print("ViewModel: Get data.")
+        return model.getData()
     }
 }
 
 // View
 class View {
-    private var viewModel: ViewModel
+    private let viewModel: ViewModel
 
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
 
     func displayData() {
-        if let data = viewModel.getData() {
-            print("Display Data: \(data)")
-        } else {
-            print("Display Data: null")
-        }
+        print("Display Data: \(viewModel.getData())")
     }
 
     func getUserInput() {
         print("View: Enter user input: ", terminator: "")
-        let userInput = readLine() ?? "hello, world!"
+        //let userInput = readLine()
+        let userInput =  "Hello, World!"
         print(userInput)
-        viewModel.updateModel(userInput)
+        viewModel.setData(userInput)
     }
 }
 
-// Client code
+// Main
 let model = Model()
 let viewModel = ViewModel(model: model)
 let view = View(viewModel: viewModel)
@@ -78,3 +68,15 @@ view.getUserInput()
 
 // Display updated data
 view.displayData()
+
+/*
+ViewModel: Get data.
+Model: Get data.
+Display Data: Default.
+View: Enter user input: Hello, World!
+ViewModel: Set data.
+Model: Set data.
+ViewModel: Get data.
+Model: Get data.
+Display Data: Hello, World!
+*/

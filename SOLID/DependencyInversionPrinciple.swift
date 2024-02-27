@@ -33,3 +33,7 @@ emailSender.sendEmail(
     subject: "mail subject.",
     body: "This is a test email body."
 )
+
+/*
+Send mail: subject: mail subject. from: sender@example.com to: recipient@example.com body: This is a test email body.
+*/

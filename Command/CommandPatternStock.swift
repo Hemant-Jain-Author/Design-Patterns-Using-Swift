@@ -47,7 +47,7 @@ class ReceiverStockTrade {
     }
 }
 
-// Usage
+// Client Code
 let trader = ReceiverStockTrade()
 let buyStock = BuyStockOrder(stock: trader)
 let sellStock = SellStockOrder(stock: trader)
@@ -55,3 +55,8 @@ let sellStock = SellStockOrder(stock: trader)
 let agent = Agent()
 agent.placeOrder(command: buyStock)
 agent.placeOrder(command: sellStock)
+
+/*
+Buy stocks
+Sell stocks
+*/

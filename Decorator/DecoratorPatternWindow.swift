@@ -44,3 +44,9 @@ let component: Window = SimpleWindow()
 let decorator1: Window = VerticalScrollBarDecorator(component)
 let decorator2: Window = HorizontalScrollBarDecorator(decorator1)
 decorator2.draw()
+
+/*
+SimpleWindow draw.
+VerticalScrollBarDecorator draw
+HorizontalScrollBarDecorator draw
+*/

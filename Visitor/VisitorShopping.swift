@@ -1,113 +1,114 @@
-import java.util.ArrayList;
-import java.util.List;
+import Foundation
 
-abstract class Element {
-    abstract double accept(Visitor visitor);
-    abstract double price();
+// Element protocol
+protocol Element {
+    func accept(visitor: Visitor) -> Double
+    func price() -> Double
 }
 
-class Book extends Element {
-    private double price;
-    private int isbn;
+// Book class conforming to Element protocol
+class Book: Element {
+    private var price: Double
+    private var isbn: Int
 
-    public Book(double price, int isbn) {
-        this.price = price;
-        this.isbn = isbn;
+    init(price: Double, isbn: Int) {
+        self.price = price
+        self.isbn = isbn
     }
 
-    @Override
-    double price(){
-        return price;
+    func price() -> Double {
+        return price
     }
 
-    @Override
-    double accept(Visitor visitor) {
-        return visitor.visitBook(this);
-    }
-}
-
-class Fruit extends Element {
-    private double price;
-    private int quantity;
-    private String type;
-
-    public Fruit(double price, int quantity, String type) {
-        this.price = price;
-        this.quantity = quantity;
-        this.type = type;
-    }
-
-    @Override
-    double price(){
-        return price;
-    }
-
-    @Override
-    double accept(Visitor visitor) {
-        return visitor.visitFruit(this) * quantity;
+    func accept(visitor: Visitor) -> Double {
+        return visitor.visit(book: self)
     }
 }
 
-abstract class Visitor {
-    abstract double visitBook(Book book);
-    abstract double visitFruit(Fruit fruit);
-}
+// Fruit class conforming to Element protocol
+class Fruit: Element {
+    private var price: Double
+    private var quantity: Int
+    private var type: String
 
-class SundayDiscount extends Visitor {
-    @Override
-    double visitBook(Book book) {
-        return book.price() - 50;
+    init(price: Double, quantity: Int, type: String) {
+        self.price = price
+        self.quantity = quantity
+        self.type = type
     }
 
-    @Override
-    double visitFruit(Fruit fruit) {
-        return fruit.price() - 5;
-    }
-}
-
-class SaleDiscount extends Visitor {
-    @Override
-    double visitBook(Book book) {
-        return book.price() / 2;
+    func price() -> Double {
+        return price
     }
 
-    @Override
-    double visitFruit(Fruit fruit) {
-        return fruit.price() / 2;
+    func accept(visitor: Visitor) -> Double {
+        return visitor.visit(fruit: self) * Double(quantity)
     }
 }
 
+// Visitor protocol
+protocol Visitor {
+    func visit(book: Book) -> Double
+    func visit(fruit: Fruit) -> Double
+}
+
+// SundayDiscount class conforming to Visitor protocol
+class SundayDiscount: Visitor {
+    func visit(book: Book) -> Double {
+        return book.price() - 50
+    }
+
+    func visit(fruit: Fruit) -> Double {
+        return fruit.price() - 5
+    }
+}
+
+// SaleDiscount class conforming to Visitor protocol
+class SaleDiscount: Visitor {
+    func visit(book: Book) -> Double {
+        return book.price() / 2
+    }
+
+    func visit(fruit: Fruit) -> Double {
+        return fruit.price() / 2
+    }
+}
+
+// ShoppingCart class
 class ShoppingCart {
-    private List<Element> list = new ArrayList<>();
-    private Visitor visitor;
+    private var list: [Element] = []
+    private var visitor: Visitor?
 
-    public void add(Element element) {
-        list.add(element);
+    func add(element: Element) {
+        list.append(element)
     }
 
-    public void setDiscountVisitor(Visitor discount) {
-        this.visitor = discount;
+    func setDiscountVisitor(discount: Visitor) {
+        self.visitor = discount
     }
 
-    public void accept() {
-        double cost = 0;
-        for (Element element : list) {
-            cost += element.accept(visitor);
+    func accept() {
+        guard let visitor = visitor else {
+            print("No discount visitor set.")
+            return
         }
-        System.out.println("Total cost: " + cost);
+
+        var cost: Double = 0
+        for element in list {
+            cost += element.accept(visitor: visitor)
+        }
+        print("Total cost: \(cost)")
     }
 }
 
-public class VisitorShopping {
-    public static void main(String[] args) {
-        ShoppingCart cart = new ShoppingCart();
-        cart.add(new Fruit(100, 10, "Apple"));
-        cart.add(new Book(100, 12345));
+// Client code.
+let cart = ShoppingCart()
+cart.add(element: Fruit(price: 100, quantity: 10, type: "Apple"))
+cart.add(element: Book(price: 100, isbn: 12345))
 
-        cart.setDiscountVisitor(new SundayDiscount());
-        cart.accept();
+cart.setDiscountVisitor(discount: SundayDiscount())
+cart.accept()
 
-        cart.setDiscountVisitor(new SaleDiscount());
-        cart.accept();
-    }
-}
+cart.setDiscountVisitor(discount: SaleDiscount())
+cart.accept()
+

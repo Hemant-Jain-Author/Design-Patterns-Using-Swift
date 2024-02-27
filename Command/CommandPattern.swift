@@ -50,18 +50,13 @@ class Receiver {
 }
 
 // Client Code
-func main() {
-    let receiver = Receiver()
-    let concreteCommand = ConcreteCommand(receiver: receiver)
-    let invoker = Invoker()
+let receiver = Receiver()
+let concreteCommand = ConcreteCommand(receiver: receiver)
+let invoker = Invoker()
 
-    invoker.setCommand(command: concreteCommand)
-    invoker.executeCommands()
-    invoker.unexecuteCommands()
-}
-
-// Run the client code
-main()
+invoker.setCommand(command: concreteCommand)
+invoker.executeCommands()
+invoker.unexecuteCommands()
 
 /*
 Action 1

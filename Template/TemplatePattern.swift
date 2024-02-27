@@ -35,9 +35,11 @@ class ConcreteClass2: AbstractClass {
     }
 }
 
-func testTemplatePattern() {
-    let concreteClass = ConcreteClass1()
-    concreteClass.templateMethod()
-}
+// Client code.
+let concreteClass = ConcreteClass1()
+concreteClass.templateMethod()
 
-testTemplatePattern()
+/*
+Concrete Class 1 : Operation 1
+Concrete Class 1 : Operation 2
+*/

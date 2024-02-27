@@ -1,86 +1,81 @@
-// Menu interface
-interface Menu {
-    void desc();
+// Menu protocol
+protocol Menu {
+    func desc()
 }
 
 // WinMenu class
-class WinMenu implements Menu {
-    @Override
-    public void desc() {
-        System.out.println("Win Menu!!");
+class WinMenu: Menu {
+    func desc() {
+        print("Win Menu!!")
     }
 }
 
 // MacMenu class
-class MacMenu implements Menu {
-    @Override
-    public void desc() {
-        System.out.println("Mac Menu!!");
+class MacMenu: Menu {
+    func desc() {
+        print("Mac Menu!!")
     }
 }
 
-// Button interface
-interface Button {
-    void desc();
+// Button protocol
+protocol Button {
+    func desc()
 }
 
 // WinButton class
-class WinButton implements Button {
-    @Override
-    public void desc() {
-        System.out.println("Win Button!!");
+class WinButton: Button {
+    func desc() {
+        print("Win Button!!")
     }
 }
 
 // MacButton class
-class MacButton implements Button {
-    @Override
-    public void desc() {
-        System.out.println("Mac Button!!");
+class MacButton: Button {
+    func desc() {
+        print("Mac Button!!")
     }
 }
 
-// Abstract Factory interface
-interface AbstractFactory {
-    Menu getMenu();
-    Button getButton();
+// Abstract Factory protocol
+protocol AbstractFactory {
+    func getMenu() -> Menu
+    func getButton() -> Button
 }
 
 // WinFactory class
-class WinFactory implements AbstractFactory {
-    @Override
-    public Menu getMenu() {
-        return new WinMenu();
+class WinFactory: AbstractFactory {
+    func getMenu() -> Menu {
+        return WinMenu()
     }
 
-    @Override
-    public Button getButton() {
-        return new WinButton();
+    func getButton() -> Button {
+        return WinButton()
     }
 }
 
 // MacFactory class
-class MacFactory implements AbstractFactory {
-    @Override
-    public Menu getMenu() {
-        return new MacMenu();
+class MacFactory: AbstractFactory {
+    func getMenu() -> Menu {
+        return MacMenu()
     }
 
-    @Override
-    public Button getButton() {
-        return new MacButton();
+    func getButton() -> Button {
+        return MacButton()
     }
 }
 
 // Client code
-public class AbstractFactoryDemo {
-    public static void main(String[] args) {
-        AbstractFactory macFactory = new MacFactory();
-        macFactory.getMenu().desc();
-        macFactory.getButton().desc();
+let macFactory: AbstractFactory = MacFactory()
+macFactory.getMenu().desc()
+macFactory.getButton().desc()
 
-        AbstractFactory winFactory = new WinFactory();
-        winFactory.getButton().desc();
-        winFactory.getMenu().desc();
-    }
-}
+let winFactory: AbstractFactory = WinFactory()
+winFactory.getButton().desc()
+winFactory.getMenu().desc()
+
+/*
+Mac Menu!!
+Mac Button!!
+Win Button!!
+Win Menu!!
+*/

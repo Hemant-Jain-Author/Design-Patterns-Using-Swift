@@ -33,14 +33,19 @@ class StoreOrderPacking: OrderPackingTemplate {
     }
 }
 
-func testTemplatePatternOrder() {
-    let onlineOrder = OnlineOrderPacking()
-    onlineOrder.packProduct()
+// Client code.
+let onlineOrder = OnlineOrderPacking()
+onlineOrder.packProduct()
+print()
+let storeOrder = StoreOrderPacking()
+storeOrder.packProduct()
 
-    print()
+/*
+Get the product from the shelf.
+Put the product inside the box.
+Add delivery address slip and ship.
 
-    let storeOrder = StoreOrderPacking()
-    storeOrder.packProduct()
-}
-
-testTemplatePatternOrder()
+Get the product from the shelf.
+Put the product inside the box.
+Add thanks message to the box and deliver to the customer.
+*/

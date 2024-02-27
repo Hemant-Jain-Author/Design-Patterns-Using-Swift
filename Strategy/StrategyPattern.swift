@@ -33,12 +33,14 @@ class Context {
     }
 }
 
-func testStrategyPattern() {
-    let context = Context(strategy: ConcreteStrategy1())
-    context.execute()
+// Client code.
+let context = Context(strategy: ConcreteStrategy1())
+context.execute()
 
-    context.setStrategy(ConcreteStrategy2())
-    context.execute()
-}
+context.setStrategy(ConcreteStrategy2())
+context.execute()
 
-testStrategyPattern()
+/*
+ConcreteStrategy1 execute
+ConcreteStrategy2 execute
+*/

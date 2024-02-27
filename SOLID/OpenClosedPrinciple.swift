@@ -7,13 +7,12 @@ class Animal {
 }
 
 class Bird: Animal {
-
-    func fly() {
-        // Abstract method, to be overridden by subclasses
-    }
-
     override init(name: String = "") {
         super.init(name: name)
+    }
+        
+    func fly() {
+        // Abstract method, to be overridden by subclasses
     }
 }
 
@@ -88,3 +87,9 @@ bird2.fly()
 
 let bird3: Bird = Pigeon()
 bird3.fly()
+
+/*
+The eagle is soaring through the sky!
+The dodo is extinct and cannot fly.
+The pigeon is fluttering its wings!
+*/

@@ -1,3 +1,31 @@
+
+// Animal class
+class Animal {
+    var name: String
+    
+    init(name: String) {
+        self.name = name
+    }
+    
+    func makeSound() {
+        print("Animal sound")
+    }
+}
+
+// Dog class
+class Dog: Animal {
+    override func makeSound() {
+        print("woof woof!")
+    }
+}
+
+// Cat class
+class Cat: Animal {
+    override func makeSound() {
+        print("meow!")
+    }
+}
+
 class Rectangle {
     private var height: Int
     private var width: Int
@@ -40,17 +68,6 @@ class Square: Rectangle {
     }
 }
 
-func testRectangle() {
-    let r = Rectangle(height: 10, width: 20)
-    testRect(rect: r)
-}
-
-func testSquare() {
-    let s = Square(sideLength: 10)
-    s.setWidth(20)
-    testRect(rect: s)
-}
-
 func testRect(rect: Rectangle) {
     rect.setHeight(10)
     rect.setWidth(20)
@@ -61,5 +78,12 @@ func testRect(rect: Rectangle) {
     }
 }
 
-testRectangle()
-testSquare()
+let r = Rectangle(height: 10, width: 20)
+testRect(rect: r)
+let s = Square(sideLength: 10)
+testRect(rect: s)
+
+/*
+success
+failure
+*/

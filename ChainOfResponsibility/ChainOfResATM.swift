@@ -30,15 +30,15 @@ class ATMHandler: ATMHandlerAbstract {
 }
 
 // Client code
-let handler = ATMHandler(
-    successor: ATMHandler(
-        successor: ATMHandler(
-            successor: ATMHandler(nil, denomination: 10),
-            denomination: 50
-        ),
-        denomination: 100
-    ),
-    denomination: 1000
-)
+let handler = ATMHandler(successor: ATMHandler(successor: ATMHandler(
+    successor: ATMHandler(successor: nil, denomination: 10),denomination: 50),
+    denomination: 100),denomination: 1000)
 
 handler.handleRequest(amount: 5560)
+
+/*
+5 notes of 1000
+5 notes of 100
+1 notes of 50
+1 notes of 10
+*/

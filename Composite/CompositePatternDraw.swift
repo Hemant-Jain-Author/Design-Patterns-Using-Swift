@@ -1,4 +1,4 @@
-// IShape
+// IShape protocol
 protocol IShape {
     func move(x: Int, y: Int)
     func draw() -> String
@@ -83,6 +83,6 @@ all.add(Circle(x: 5, y: 3, radius: 10))
 let group = CompoundShape()
 group.add(Rectangle(x: 5, y: 7, length: 1, breadth: 2))
 group.add(Circle(x: 2, y: 1, radius: 2))
-
 all.add(group)
+
 print(all.draw())

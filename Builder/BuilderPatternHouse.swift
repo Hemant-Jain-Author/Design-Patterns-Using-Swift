@@ -95,6 +95,7 @@ let director2 = HouseDirector(builder: builder2)
 let house2 = director2.construct()
 print(house2.description)
 
-// Displaying both houses
-print(house.description)
-print(house2.description)
+/*
+House of Concrete Wall and Concrete Roof
+House of Wooden Wall and Wooden Roof
+*/

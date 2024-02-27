@@ -58,17 +58,40 @@ class SuperHero: AbstractWorker {
     }
 }
 
-func testTemplatePatternPerson() {
-    let doctor = Doctor()
-    doctor.dailyRoutine()
-    print()
+// Client code.
+let doctor = Doctor()
+doctor.dailyRoutine()
+print()
 
-    let fireFighter = FireFighter()
-    fireFighter.dailyRoutine()
-    print()
+let fireFighter = FireFighter()
+fireFighter.dailyRoutine()
+print()
 
-    let superHero = SuperHero()
-    superHero.dailyRoutine()
-}
+let superHero = SuperHero()
+superHero.dailyRoutine()
 
-testTemplatePatternPerson()
+/*
+Wake Up
+Eat Breakfast
+Go to work
+...Treat Patients...
+Come back Home
+Eat dinner
+Sleep
+
+Wake Up
+Eat Breakfast
+Go to work
+...Fight Fire...
+Come back Home
+Eat dinner
+Sleep
+
+Wake Up
+Eat Breakfast
+Go to work
+...Save the world!...
+Come back Home
+Eat dinner
+Sleep
+*/

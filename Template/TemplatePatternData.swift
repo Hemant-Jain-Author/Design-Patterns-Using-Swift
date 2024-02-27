@@ -48,9 +48,12 @@ class AddDataToDB: AddDataTemplate {
     }
 }
 
-func testTemplatePatternData() {
-    let addDataToDB = AddDataToDB()
-    addDataToDB.addData()
-}
+// Client code.
+let addDataToDB = AddDataToDB()
+addDataToDB.addData()
 
-testTemplatePatternData()
+/* 
+Open Database.
+Add data to Database.
+Close Database. 
+*/

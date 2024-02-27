@@ -91,3 +91,9 @@ print(product2.description)
 
 let product3 = director.construct3()
 print(product3.description)
+
+/*
+Product : (A1, B1)
+Product : (A2, B2)
+Product : (A3, B default)
+*/

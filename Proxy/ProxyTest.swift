@@ -26,13 +26,9 @@ class Proxy: Subject {
 }
 
 // Main class
-class ProxyTest {
-    func main() {
-        let proxy = Proxy()
-        proxy.request()
-    }
-}
+let proxy = Proxy()
+proxy.request()
 
-// Create an instance of ProxyTest and call the main method
-let proxyTest = ProxyTest()
-proxyTest.main()
+/*
+Concrete Subject Request Method
+*/

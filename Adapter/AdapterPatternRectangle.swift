@@ -56,3 +56,6 @@ class RectangleAdapter: Shape {
 let adapter: Shape = RectangleAdapter(x: 1, y: 2, length: 3, width: 4)
 adapter.draw()
 
+/*
+Drawing Rectangle.
+*/

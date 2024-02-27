@@ -57,16 +57,20 @@ class StrategyClass {
     }
 }
 
-func testStrategyPatternSorter() {
-    var a = [4, 5, 3, 2, 6, 7, 1, 8, 9, 10]
-    let s = StrategyClass(BubbleSort())
-    s.sort(&a)
-    print(a)
+// Client code.
+var a = [4, 5, 3, 2, 6, 7, 1, 8, 9, 10]
+let s = StrategyClass(BubbleSort())
+s.sort(&a)
+print(a)
 
-    var b = [4, 5, 3, 2, 6, 7, 1, 8, 9, 10]
-    s.setSorter(SelectionSort())
-    s.sort(&b)
-    print(b)
-}
+var b = [4, 5, 3, 2, 6, 7, 1, 8, 9, 10]
+s.setSorter(SelectionSort())
+s.sort(&b)
+print(b)
 
-testStrategyPatternSorter()
+/*
+Bubble Sort Algorithm executed.
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Selection Sort Algorithm executed.
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+*/
