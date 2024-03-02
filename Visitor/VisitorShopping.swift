@@ -8,16 +8,16 @@ protocol Element {
 
 // Book class conforming to Element protocol
 class Book: Element {
-    private var price: Double
+    private var _price: Double
     private var isbn: Int
 
     init(price: Double, isbn: Int) {
-        self.price = price
+        self._price = price
         self.isbn = isbn
     }
 
     func price() -> Double {
-        return price
+        return _price
     }
 
     func accept(visitor: Visitor) -> Double {
@@ -27,18 +27,18 @@ class Book: Element {
 
 // Fruit class conforming to Element protocol
 class Fruit: Element {
-    private var price: Double
+    private var _price: Double
     private var quantity: Int
     private var type: String
 
     init(price: Double, quantity: Int, type: String) {
-        self.price = price
+        self._price = price
         self.quantity = quantity
         self.type = type
     }
 
     func price() -> Double {
-        return price
+        return _price
     }
 
     func accept(visitor: Visitor) -> Double {
@@ -112,3 +112,7 @@ cart.accept()
 cart.setDiscountVisitor(discount: SaleDiscount())
 cart.accept()
 
+/*
+Total cost: 1000.0
+Total cost: 550.0
+*/
