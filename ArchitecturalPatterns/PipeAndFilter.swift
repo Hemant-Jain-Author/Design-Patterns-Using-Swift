@@ -48,7 +48,7 @@ class DataProcessingPipeline {
     }
 }
 
-// Main
+// Client Code
 let pipeline = DataProcessingPipeline()
 pipeline.addFilter(CapitalizeFilter())
 pipeline.addFilter(ReplaceSpaceFilter())

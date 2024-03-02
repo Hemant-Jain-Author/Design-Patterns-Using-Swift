@@ -47,7 +47,7 @@ class ConcreteAggregate: Aggregate {
     }
 }
 
-// Main
+// Client Code
 let aggregate = ConcreteAggregate()
 for i in 0..<5 {
     aggregate.addData(i)

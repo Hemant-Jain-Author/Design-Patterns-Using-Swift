@@ -59,7 +59,7 @@ class ConcreteParticipant: Participant {
     }
 }
 
-
+// Client Code
 let chatRoom = ConcreteChatRoom()
 let james = ConcreteParticipant(name: "James", chatRoom: chatRoom)
 let michael = ConcreteParticipant(name: "Michael", chatRoom: chatRoom)

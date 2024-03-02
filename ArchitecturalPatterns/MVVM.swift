@@ -55,7 +55,7 @@ class View {
     }
 }
 
-// Main
+// Client Code
 let model = Model()
 let viewModel = ViewModel(model: model)
 let view = View(viewModel: viewModel)

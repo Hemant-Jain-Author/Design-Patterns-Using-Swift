@@ -99,6 +99,7 @@ func test(state: State, count: Int) {
     print(duration)
 }
 
+// Client Code
 let state1 = ConcreteState1.getInstance()
 test(state: state1, count: 10)
 

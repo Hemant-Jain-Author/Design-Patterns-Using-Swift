@@ -54,7 +54,7 @@ class Presenter {
     }
 }
 
-// Main
+// Client Code
 let model = Model()
 let view = View()
 let presenter = Presenter(model: model, view: view)

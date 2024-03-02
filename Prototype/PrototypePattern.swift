@@ -43,17 +43,14 @@ class PrototypeRegistry {
     }
 }
 
-func main() {
-    PrototypeRegistry.load()
-    if let c1 = PrototypeRegistry.getPrototype(key: "CP1") as? Prototype {
-        c1.display()
-    }
-    if let c2 = PrototypeRegistry.getPrototype(key: "CP2") as? Prototype {
-        c2.display()
-    }
+// Client code
+PrototypeRegistry.load()
+if let c1 = PrototypeRegistry.getPrototype(key: "CP1") as? Prototype {
+    c1.display()
 }
-
-main()
+if let c2 = PrototypeRegistry.getPrototype(key: "CP2") as? Prototype {
+    c2.display()
+}
 
 /*
 ConcretePrototype1

@@ -78,6 +78,7 @@ func testRect(rect: Rectangle) {
     }
 }
 
+// Client Code
 let r = Rectangle(height: 10, width: 20)
 testRect(rect: r)
 let s = Square(sideLength: 10)

@@ -59,6 +59,7 @@ struct LinkedListIterator: IteratorProtocol {
     }
 }
 
+// Client Code
 var aggregate = LinkedList()
 for i in 0..<5 {
     aggregate.addHead(i)

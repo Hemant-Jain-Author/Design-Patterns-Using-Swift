@@ -94,6 +94,7 @@ class CareTaker {
     }
 }
 
+// Client Code
 let originator = Originator()
 let careTaker = CareTaker()
 

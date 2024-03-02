@@ -28,6 +28,7 @@ class HealthCheckSingleton {
     }
 }
 
+// Client Code
 let hc1 = HealthCheckSingleton.getInstance()
 hc1.addServer()
 

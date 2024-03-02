@@ -78,7 +78,7 @@ class ConcreteObserver2: Observer {
     }
 }
 
-// Main
+// Client Code
 let subject = ConcreteSubject()
 let observer1 = ConcreteObserver1(subject: subject)
 let observer2 = ConcreteObserver2(subject: subject)

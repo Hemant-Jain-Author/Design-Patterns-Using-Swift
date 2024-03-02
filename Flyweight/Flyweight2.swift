@@ -47,7 +47,7 @@ class ClientClass {
     }
 }
 
-// Example usage
+// Client Code
 let factory = FlyweightFactory()
 let c = ClientClass(factory: factory, intrinsicState: "common", extrinsicState: "separate1")
 c.operation()

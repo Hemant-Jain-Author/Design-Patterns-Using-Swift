@@ -51,7 +51,7 @@ class MacAPI: DrawingAPI {
     }
 }
 
-// Usage
+// Client Code
 let windowsAPI = WindowsAPI()
 let macAPI = MacAPI()
 

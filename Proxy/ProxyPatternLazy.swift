@@ -34,7 +34,7 @@ class LazyBookParserProxy: BookParser {
     }
 }
 
-// Main class
+// Client Code
 let proxy = LazyBookParserProxy()
 print(proxy.numPages())
 

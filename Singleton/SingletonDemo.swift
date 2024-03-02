@@ -28,6 +28,7 @@ class Singleton {
     }
 }
 
+// Client Code
 let s1 = Singleton.getInstance()
 let s2 = Singleton.getInstance()
 

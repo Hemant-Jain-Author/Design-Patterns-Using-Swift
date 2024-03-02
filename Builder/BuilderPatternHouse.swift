@@ -89,7 +89,6 @@ let director = HouseDirector(builder: builder)
 let house = director.construct()
 print(house.description)
 
-// Building a wooden house using a WoodenHouseBuilder object
 let builder2 = WoodenHouseBuilder()
 let director2 = HouseDirector(builder: builder2)
 let house2 = director2.construct()

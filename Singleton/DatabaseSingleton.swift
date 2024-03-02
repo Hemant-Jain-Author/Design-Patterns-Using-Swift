@@ -51,6 +51,7 @@ class DatabaseSingleton {
     }
 }
 
+// Client Code
 let db1 = DatabaseSingleton.getInstance()
 let db2 = DatabaseSingleton.getInstance()
 

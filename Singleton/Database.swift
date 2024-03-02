@@ -52,6 +52,7 @@ class Database {
     }
 }
 
+// Client Code
 let db1 = Database.getInstance()
 let db2 = Database.getInstance()
 

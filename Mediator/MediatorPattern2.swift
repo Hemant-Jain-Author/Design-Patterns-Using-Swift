@@ -55,6 +55,7 @@ class ConcreteColleague: Colleague {
     }
 }
 
+// Client Code
 let mediator = ConcreteMediator()
 let first = ConcreteColleague(id: "First", mediator: mediator)
 mediator.addColleague(first)

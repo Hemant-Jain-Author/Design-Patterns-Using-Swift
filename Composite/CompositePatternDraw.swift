@@ -1,5 +1,5 @@
-// IShape protocol
-class IShape: Hashable {
+// Shape protocol
+class Shape: Hashable {
     func move(x: Int, y: Int){
         fatalError("Operation must be overridden by subclasses")
     }
@@ -8,7 +8,7 @@ class IShape: Hashable {
         fatalError("Operation must be overridden by subclasses")
     }
 
-    static func == (lhs: IShape, rhs: IShape) -> Bool {
+    static func == (lhs: Shape, rhs: Shape) -> Bool {
         return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
     
@@ -18,7 +18,7 @@ class IShape: Hashable {
 }
 
 // Rectangle class
-class Rectangle: IShape {
+class Rectangle: Shape {
     private var x, y, length, breadth: Int
 
     init(x: Int, y: Int, length: Int, breadth: Int) {
@@ -51,7 +51,7 @@ class Rectangle: IShape {
 }
 
 // Circle class
-class Circle: IShape {
+class Circle: Shape {
     private var x, y, radius: Int
 
     init(x: Int, y: Int, radius: Int) {
@@ -82,14 +82,14 @@ class Circle: IShape {
 }
 
 // CompoundShape class
-class CompoundShape: IShape {
-    private var children = Set<IShape>()
+class CompoundShape: Shape {
+    private var children = Set<Shape>()
 
-    func add(_ child: IShape) {
+    func add(_ child: Shape) {
         children.insert(child)
     }
 
-    func remove(_ child: IShape) {
+    func remove(_ child: Shape) {
         children.remove(child)
     }
 

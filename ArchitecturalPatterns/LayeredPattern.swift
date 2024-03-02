@@ -54,7 +54,7 @@ class PresentationLayer {
     }
 }
 
-// Main
+// Client Code
 let dataAccess = DataAccessLayer()
 let businessLogic = BusinessLogicLayer(dataAccess: dataAccess)
 let presentationLayer = PresentationLayer(businessLogic: businessLogic)

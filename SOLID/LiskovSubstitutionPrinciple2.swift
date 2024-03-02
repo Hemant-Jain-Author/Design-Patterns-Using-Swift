@@ -55,6 +55,7 @@ func test(bird: Bird) {
     }
 }
 
+// Client Code
 let sparrow = Sparrow(name: "Sparrow")
 test(bird: sparrow)
 

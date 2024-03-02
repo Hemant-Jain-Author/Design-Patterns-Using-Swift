@@ -24,7 +24,7 @@ class Proxy: Subject {
     }
 }
 
-// Main class
+// Client Code
 let proxy = Proxy()
 proxy.request()
 

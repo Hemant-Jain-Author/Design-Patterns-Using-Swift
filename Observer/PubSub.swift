@@ -39,30 +39,28 @@ class Subscriber {
     }
 }
 
-func main() {
-    let pub = Publisher()
+// Client Code
+let pub = Publisher()
 
-    let sub1 = Subscriber(id: "Subscriber1")
-    let sub2 = Subscriber(id: "Subscriber2")
-    let sub3 = Subscriber(id: "Subscriber3")
+let sub1 = Subscriber(id: "Subscriber1")
+let sub2 = Subscriber(id: "Subscriber2")
+let sub3 = Subscriber(id: "Subscriber3")
 
-    print()
-    pub.subscribe(subscriber: sub1, topic: "topic1")
-    pub.subscribe(subscriber: sub2, topic: "topic2")
-    pub.subscribe(subscriber: sub3, topic: "topic2")
+print()
+pub.subscribe(subscriber: sub1, topic: "topic1")
+pub.subscribe(subscriber: sub2, topic: "topic2")
+pub.subscribe(subscriber: sub3, topic: "topic2")
 
-    print()
-    pub.notifySubscribers(data: "Topic 1 data", topic: "topic1")
+print()
+pub.notifySubscribers(data: "Topic 1 data", topic: "topic1")
 
-    print()
-    pub.notifySubscribers(data: "Topic 2 data", topic: "topic2")
+print()
+pub.notifySubscribers(data: "Topic 2 data", topic: "topic2")
 
-    print()
-    pub.unsubscribe(subscriber: sub3, topic: "topic2")
-    pub.notifySubscribers(data: "Topic 2 data", topic: "topic2")
-}
+print()
+pub.unsubscribe(subscriber: sub3, topic: "topic2")
+pub.notifySubscribers(data: "Topic 2 data", topic: "topic2")
 
-main()
 
 /*
 Subscribing: Subscriber1 to topic: topic1

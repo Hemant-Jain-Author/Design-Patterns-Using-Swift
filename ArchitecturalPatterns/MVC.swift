@@ -79,7 +79,7 @@ class Controller {
     }
 }
 
-// Main
+// Client Code
 let model = Model()
 let controller = Controller(model: model)
 let view = View(model: model, controller: controller)
