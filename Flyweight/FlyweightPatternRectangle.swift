@@ -1,51 +1,47 @@
 import Foundation
 
-// Shape protocol
-protocol Shape {
-    func draw(x1: Int, y1: Int, x2: Int, y2: Int)
-}
+// Shape abstract class
+class Shape {
+    var colour: Int // Intrinsic State
 
-// Rectangle class implementing Shape
-class Rectangle: Shape {
-    private let colour: String
-
-    init(colour: String) {
+    init(colour: Int) {
         self.colour = colour
     }
 
     func draw(x1: Int, y1: Int, x2: Int, y2: Int) {
-        //print("Draw rectangle colour: \(self.colour) topleft: (\(x1),\(y1)) rightBottom: (\(x2),\(y2))")
+        fatalError("Subclasses must override the draw method")
+    }
+}
+
+// Rectangle class
+class Rectangle: Shape {
+    override func draw(x1: Int, y1: Int, x2: Int, y2: Int) {
+        //print("Draw Rectangle colour: \(colour) topleft: (\(x1),\(y1)) rightBottom: (\(x2),\(y2))")
     }
 }
 
 // RectangleFactory class
 class RectangleFactory {
-    private var shapes: [String: Shape] = [:]
+    private var shapes: [Int: Shape] = [:]
 
-    func getRectangle(colour: String) -> Shape {
-        if let existingRectangle = shapes[colour] {
-            return existingRectangle
-        } else {
-            let newRectangle = Rectangle(colour: colour)
-            shapes[colour] = newRectangle
-            return newRectangle
+    func getRectangle(colour: Int) -> Shape {
+        if shapes[colour] == nil {
+            shapes[colour] = Rectangle(colour: colour)
         }
+        return shapes[colour]!
     }
 
-    func getCount() -> Int {
+    var count: Int {
         return shapes.count
     }
 }
 
 // Client code
 let factory = RectangleFactory()
-let random = Int.random(in: 0..<1000)
 
-for _ in 0..<100 {
-    let rectangle = factory.getRectangle(colour: String(random))
-    rectangle.draw(x1: Int.random(in: 0..<100), y1: Int.random(in: 0..<100), x2: Int.random(in: 0..<100), y2: Int.random(in: 0..<100))
+for _ in 0..<1000 {
+    let rect = factory.getRectangle(colour: Int.random(in: 0..<1000))
+    rect.draw(x1: Int.random(in: 0..<100), y1: Int.random(in: 0..<100), x2: Int.random(in: 0..<100), y2: Int.random(in: 0..<100))
 }
-
-print(factory.getCount())
-
+print(factory.count)
 

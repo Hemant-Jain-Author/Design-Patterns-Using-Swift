@@ -42,14 +42,8 @@ class DataProcessor {
     private func formatOutput() {
         // Output formatting logic
     }
-
-    // Example usage
-    static func main() {
-        let data = "exampleData"
-        let processor = DataProcessor(data: data)
-        processor.processData()
-    }
 }
 
-// Call the main method
-DataProcessor.main()
+let data = "exampleData"
+let processor = DataProcessor(data: data)
+processor.processData()

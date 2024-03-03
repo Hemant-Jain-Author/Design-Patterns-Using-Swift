@@ -1,11 +1,5 @@
-// Handler protocol
-protocol Handler {
-    var successor: Handler? { get set }
-    func handleRequest(_ request: String)
-}
-
-// Base Handler class
-class BaseHandler: Handler {
+// Handler class
+class Handler {
     var successor: Handler?
 
     init(successor: Handler?) {
@@ -18,7 +12,7 @@ class BaseHandler: Handler {
 }
 
 // ConcreteHandler1 class
-class ConcreteHandler1: BaseHandler {
+class ConcreteHandler1: Handler {
     override func handleRequest(_ request: String) {
         if request == "request1" {
             print("ConcreteHandler1 handles the request1.")
@@ -29,7 +23,7 @@ class ConcreteHandler1: BaseHandler {
 }
 
 // ConcreteHandler2 class
-class ConcreteHandler2: BaseHandler {
+class ConcreteHandler2: Handler {
     override func handleRequest(_ request: String) {
         if request == "request2" {
             print("ConcreteHandler2 handles the request2.")
@@ -40,7 +34,7 @@ class ConcreteHandler2: BaseHandler {
 }
 
 // ConcreteHandler3 class
-class ConcreteHandler3: BaseHandler {
+class ConcreteHandler3: Handler {
     override func handleRequest(_ request: String) {
         if request == "request3" {
             print("ConcreteHandler3 handles the request3.")
